@@ -1,0 +1,5 @@
+coach=히딩크
+player=손흥민
+number=7
+nationality=대한민국
+position=7

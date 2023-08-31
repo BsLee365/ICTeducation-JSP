@@ -1,0 +1,3 @@
+airplane=com.shopping.transport.AirplaneController
+car=com.shopping.transport.CarController
+horse=com.shopping.transport.HorseController

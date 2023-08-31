@@ -1,0 +1,2 @@
+baseball=com.shopping.sports.BaseballController
+football=com.shopping.sports.FootballController

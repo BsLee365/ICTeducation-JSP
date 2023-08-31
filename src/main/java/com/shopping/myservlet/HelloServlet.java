@@ -124,7 +124,7 @@ public class HelloServlet extends HttpServlet {
 		session.setAttribute("company", company);
 		session.setAttribute("address", address);
 		
-		String gotopage = "example/srvletTo01.jsp";
+		String gotopage = "example/servletTo01.jsp";
 		
 		//포워딩 방식
 		RequestDispatcher dispatcher = request.getRequestDispatcher(gotopage);
