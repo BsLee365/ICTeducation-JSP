@@ -42,7 +42,7 @@
   				return false ;
   			}  		
   			
-  			var image = $('#image').val();
+  			var image = $('#image01').val();
   			if(image == ''){
   				alert('이미지는 필수 사항입니다.');
   				return false ;
@@ -153,7 +153,7 @@
 			</div>
 			<div class="input-group">
 				<span class="input-group-text">이미지</span>
-				<input class="form-control" type="file" id="image" name="image">				
+				<input class="form-control" type="file" id="image01" name="image01">				
 			</div>
 			<div class="input-group">
 				<span class="input-group-text">재고 수량</span>

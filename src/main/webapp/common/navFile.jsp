@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file='./../common/bootstrap5.jsp'%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -23,13 +26,18 @@
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">회원</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">회원가입</a></li>
-							<li><a class="dropdown-item" href="#">정보 수정</a></li>
-							<li><a class="dropdown-item" href="#">로그인</a></li>
-							<li><a class="dropdown-item" href="#">로그아웃</a></li>
-							<li><a class="dropdown-item" href="#">상세보기</a></li>
-							<li><a class="dropdown-item" href="#">탈퇴하기</a></li>
-							<li><a class="dropdown-item" href="#">목록보기</a></li>
+							
+							<c:if test="${whologin eq 0}"> 
+								<li><a class="dropdown-item" href="#">회원가입</a></li>
+								<li><a class="dropdown-item" href="#">로그인</a></li>
+							</c:if>
+							<c:if test="${whologin not eq 0}">
+								<li><a class="dropdown-item" href="#">정보 수정</a></li>
+								<li><a class="dropdown-item" href="#">로그아웃</a></li>
+								<li><a class="dropdown-item" href="#">상세보기</a></li>
+								<li><a class="dropdown-item" href="#">탈퇴하기</a></li>
+								<li><a class="dropdown-item" href="#">목록보기</a></li>
+							</c:if>
 						</ul>
 					</li>
 					<!-- 게시글 보기 -->

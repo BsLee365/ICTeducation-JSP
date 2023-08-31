@@ -20,6 +20,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<link rel="stylesheet" href="css/jquery-picZoomer.css">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="src/jquery.picZoomer.js"></script>
 	   <script type="text/javascript">
       $(document).ready(function(){
          // Initialize popoveer
@@ -30,13 +33,29 @@
 
       });
    </script>
+	<style type="text/css">
+	.container{margin-top : 10px;}
+	/* table 셀의 수평 가운데 정렬 */
+	.card {
+		margin-left: auto;
+		margin-right: auto;
+	}
 	
-	<meta charset="UTF-8">
+	.card-img-top {
+		width: 300px;
+		height: 300px;
+	}
+	
+	.removeUnderLine {
+		text-decoration-line: none;
+	}
+	</style>
+<meta charset="UTF-8">
 	<title>Insert title here</title>
 	</head>
 	<body>
 		<div class="container">
-			<h2>상품 목록</h2>
+			<h2><a style="text-decoration: none; color: black;" href="./prList02.jsp">상품 목록</a></h2>
 			<p>고객들이 구매하고자하는 상품들의 목록을 보여주는 페이지 입니다.</p>
 			<table class="table table-borderless">
 			<!-- table-hover table-striped table-condensed-->
@@ -52,8 +71,8 @@
 						</c:if>
 						<td>
 							<div class="card" style="width: 19rem;">
-								<a href="#">
-									<img alt="${bean.name}" src="./../image/images/${bean.image}" style="width: 100%;">
+								<a class="removeUnderLine" href="prDetail02.jsp?num=${bean.num}">
+									<img alt="${bean.name}" src="./../image/images/${bean.image01}" style="width: 100%;">
 										<div class="card-body">
 											<h5 class="card-title">${bean.name}</h5>
 											

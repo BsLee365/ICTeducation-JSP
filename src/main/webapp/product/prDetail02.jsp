@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
     <%@include file='./../common/bootstrap5.jsp'%>
     <%@include file='./../common/common.jsp'%>
+    <%@page import='com.shopping.model.dao.ProductDao'%>
+    <%@page import='com.shopping.model.bean.Product'%>
+<%
+	request.setCharacterEncoding("utf-8");
+	int pnum = Integer.parseInt(request.getParameter("num"));
+	ProductDao dao = new ProductDao();
+	Product bean = dao.getDataByPK02(pnum);
+	
+	request.setAttribute("bean", bean); //바인딩
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,9 +23,12 @@
 	<title>Insert title here</title>
 	<script>
 		const maxPurchaseSize = 5;
-		const price = 10000;
-	
+		/* const price = 10000; 단가 */
+		
 		$(document).ready(function(){
+			
+			var price = ${bean.price}; //단가
+			
 			// Select all elements with data-toggle="popover" in the document
 			$('[data-toggle="popover"]').popover();
 		
@@ -43,7 +56,8 @@
 				}else{
 					$('#qty').val(newQty);
 				}
-				$('#totalprice').text(newQty*price);
+				var amount = newQty*price;
+				$('#totalprice').text(amount.toLocaleString());
 			})
 			
 			
@@ -59,7 +73,8 @@
 					$('#totalprice').text('0');
 				}else{
 					$('#qty').val(newQty);
-					$('#totalprice').text(newQty*price);
+					var amount = newQty*price;
+					$('#totalprice').text(amount.toLocaleString());
 				}
 			})
 			
@@ -154,7 +169,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2>상품 목록</h2>
+			<h2><a style="text-decoration: none; color: black;" href="./prList02.jsp">상품 목록</a></h2>
 			<p>고객들이 구매하고자하는 상품들의 목록을 보여주는 페이지 입니다.</p>
 			<table class="table table-borderless">
 			<!-- table-hover table-striped table-condensed-->
@@ -165,19 +180,24 @@
 					<tr>
 						<td class="col-lg-5">
 							<div class="card picZoomer">
-								<img alt="그림1" src="./../image/images/milk01.jpg" class="card-img-top active_image">
+								<img alt="${bean.name}" src="./../image/images/${bean.image01}" class="card-img-top active_image">
 							</div>
 					</td>
 					
 						<td class="col-lg-1">
-							<img alt="그림1" src="./../image/images/coffee01.png" class="card-img-top small_image rounded">
-							<img alt="그림2" src="./../image/images/juice01.png" class="card-img-top small_image rounded">
-							<img alt="그림3" src="./../image/images/ciabatta_01.png" class="card-img-top small_image rounded">
+							<img alt="${bean.name}" src="./../image/images/${bean.image01}" class="card-img-top small_image rounded">
+							
+							<c:if test="${not empty bean.image02}">
+								<img alt="${bean.name}" src="./../image/images/${bean.image02}" class="card-img-top small_image rounded">
+							</c:if>
+							<img alt="${bean.name}" src="./../image/images/${bean.image03}" class="card-img-top small_image rounded">
+						
 						</td>
+						
 						<td class="col-lg-6">
 							<div class="card leftside card_borderless" style="width: 18rem;">
-								<h5 class ="card-title">상품1</h5>
-								<p class="card-text">이 상품은 좋아</p>
+								<h5 class ="card-title">${bean.name}</h5>
+								<p class="card-text">${bean.contents}</p>
 								<p class="card-text">
 									합계 : <span id="totalprice">10000</span>원
 								</p>

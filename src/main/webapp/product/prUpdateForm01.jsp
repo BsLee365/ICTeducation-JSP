@@ -69,7 +69,7 @@
 				
 				<div class="input-group">
 					<span class="input-group-text">상품 이미지</span>
-					<input class="form-control" type="file" id="image" name="image" value="<%=bean.getImage()%>">
+					<input class="form-control" type="file" id="image01" name="image01" value="<%=bean.getImage01()%>">
 				</div>
 				
 				<div class="input-group">

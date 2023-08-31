@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<link rel="stylesheet" href="css/jquery-picZoomer.css">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="src/jquery.picZoomer.js"></script>
+	
 		<meta charset="UTF-8">
 		<title>상품 등록</title>
 	</head>
@@ -32,7 +36,7 @@
 				
 				<div class="input-group">
 					<span class="input-group-text">상품 이미지</span>
-					<input class="form-control" type="file" id="image" name="image">
+					<input class="form-control" type="file" id="image01" name="image01">
 				</div>
 				
 				<div class="input-group">
