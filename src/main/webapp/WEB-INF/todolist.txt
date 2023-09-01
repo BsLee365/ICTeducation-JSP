@@ -1,0 +1,5 @@
+# 구현해야 할 목록들
+home=com.shopping.controller.HomeController
+# member section
+meLogin=com.shopping.controller.MemberLoginController
+#meLogout=com.shopping.controller.MemberLogoutController

@@ -1,14 +1,23 @@
 <%@page import="com.shopping.model.bean.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file='./../common/bootstrap5.jsp'%>
-<%-- <%@include file='./../common/navFile.jsp'%> --%>
+<%-- <%@include file='./../common/bootstrap5.jsp'%> --%>
 <%@ page import="java.util.*"%>
 <% 
     //appName = 애플리케이션 이름(프로젝트 이름_Student)
 	 String appName = request.getContextPath();
 	/* out.print("프로젝트 이름 : " + appName); */
-
+	
+	//FrontController.java, start.jsp
+	String mappingName = "/Shopping";
+	//form 태그에서 사용할 변수 
+	String withFormTag = appName + mappingName;
+	//form 태그가 아닌 영역에서 사용할 변수
+	String notWithFormTag = appName + mappingName + "?command=";
+	
+	/* out.print("withFormTag : " + withFormTag + "<br>");
+	out.print("notWithFormTag : " + notWithFormTag + "<br>");
+	out.print("mappingName : " + mappingName + "<br>"); */
 %>
 <%-- jstl을 위한 태그 라이브러리 선언 --%>
 <!-- prefix alias느낌 -->
@@ -16,14 +25,14 @@
 
 <%
 	Member mem = new Member();
-	mem.setId("hong");
-	mem.setName("홍길동");
+	/* mem.setId("hong");
+	mem.setName("홍길동"); */
 	//session.setAttribute("loginfo", mem); //로그인시
-	session.setAttribute("loginfo", null); //미로그인시
+	//session.setAttribute("loginfo", null); //미로그인시
 	
 	
 	//경고성 alert Box
-	session.setAttribute("alertMessage", "아이디/비번 정보를 잘못 입력하셨습니다.");
+	/* session.setAttribute("alertMessage", "아이디/비번 정보를 잘못 입력하셨습니다.");  */
 %>
 
 <!-- whologin변수는 현재 로그인 상태를 알려주는 변수입니다.-->
@@ -76,7 +85,8 @@
 							<c:if test="${whologin eq 0}"> 
 								<!-- 로그인 안된 사람만 -->
 								<li><a class="dropdown-item" href="#">회원가입</a></li>
-								<li><a class="dropdown-item" href="#">로그인</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meLogin">로그인</a></li>
+								<!-- notWithFormTag = /Student/Shopping?command=meLogin -->
 							</c:if>
 							<c:if test="${whologin ne 0}">
 								<!-- 로그인 된 사람만 -->
@@ -121,8 +131,10 @@
 		<!-- 사용자에게 주의/경고/오류 등을 알려주기 위한 Alert Box -->
 		<div class="alert alert-success alert-dismissible" style="margin: 10px 10px 0px 10px;">
 	  		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	  		<strong>로그인 실패</strong> ${sessionScope.alertMessage}
+	  		<strong>경고 메시지</strong> ${sessionScope.alertMessage}
+	  		${sessionScope.loginfo}
 		</div>
+		
 	</c:if>
 	<!-- 보여준 alertbox를 제거합니다. -->
 	<c:remove var="alertMessage" scope="session"/>

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.*;
 
+import com.shopping.controller.SuperController;
 import com.shopping.transport.VehicleController;
 
 public class MyUtility {
@@ -36,10 +37,34 @@ public class MyUtility {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return map;
 	}
+	
+	//frontController의 todolist를 위한 변환 메소드
+	public static Map<String, SuperController> getTodolistMap(String filename){
+		//이 항목들을 Map구조에 담아서 반환 합니다	
+		Map<String, SuperController> map = new HashMap<String, SuperController>();
+		
+			Properties prop = getPropertiesData(filename);
+			
+			Enumeration<Object> keys = prop.keys();
+			
+			while(keys.hasMoreElements()) {
+				String command = keys.nextElement().toString();
+				String className = prop.getProperty(command);
+				System.out.println(command + "/" + className);
+				
+				try {
+					Class<?> handleClass = Class.forName(className);
+					SuperController instance = (SuperController)handleClass.newInstance();
+					map.put(command, instance);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return map;
+		}
+	
 
 	private static Properties getPropertiesData(String webFullPathName) {
 		//스트링을 이용하여 프로퍼티 목록을 반환해줍니다.
@@ -49,7 +74,7 @@ public class MyUtility {
 		try {
 			fis = new FileInputStream(webFullPathName);
 			prop = new Properties();
-			prop.load(fis);
+			prop.load(fis); //경로에 있는 것을 load함.
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -67,12 +92,12 @@ public class MyUtility {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("prop.toString()");
-		System.out.println(prop.toString());
+		System.out.println("prop.toString() : " + prop.toString());
 		return prop;
 	}
 	
 	public static Map<String, String> getSettingMap(String webSettingName) {
+		//webSettingName을 자바의 map형태로 변환해줌.
 		Map<String, String> map = new HashMap<String, String>();
 		Properties prop = null;
 		prop = getPropertiesData(webSettingName);

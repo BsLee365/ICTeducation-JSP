@@ -3,6 +3,7 @@ package com.shopping.utility;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import com.shopping.sports.SportController;
@@ -30,10 +31,9 @@ public class SportUtility {
 				e.printStackTrace();
 			}
 		}
-		
 		return map;
 	}
-	
+	//파일을 Properties클래스를 이용하여 분리
 	private static Properties getPropertiesData(String pathName) {
 		FileInputStream fis = null;
 		Properties prop = null;
@@ -59,9 +59,26 @@ public class SportUtility {
 		
 		return prop;
 	}
-
+	
+	//setting2.txt를 맵으로 변환하기 위한 함수
 	public static Map<String, String> getSettingMap(String webSettingName) {
+		Map<String, String> map = new HashMap<String, String>();
+		Properties prop = null;
+		prop = getPropertiesData(webSettingName);
 		
-		return null;
+		Enumeration<Object> keys = prop.keys();
+		
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement().toString();
+			String value = prop.getProperty(key);
+			
+			try {
+				map.put(key, new String(value.getBytes("ISO-8859-1"), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return map;
 	}
 }

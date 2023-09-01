@@ -3,6 +3,7 @@ package com.shopping.myservlet;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -69,14 +70,14 @@ public class SportServlet extends HttpServlet {
 		//setting2.txt를 map으로 바꿔줌
 		setting2Map = SportUtility.getSettingMap(webSetting2Name);
 		
-		//application에 map변수에 넣어줌.
+		//application에 map변수에 넣어줌. 이때, setting2Map은 map으로 되어있음.
 		application.setAttribute("map", setting2Map);
 	}
 	
 	//service 부재시 doProcess가 대신해서 역할을 함.
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response){
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String command = request.getParameter("command");
-		System.out.println(command);
+		System.out.println("command : " + command);
 		
 		SportController controller = sportMap.get(command); 
 		if(controller != null) {
@@ -85,6 +86,9 @@ public class SportServlet extends HttpServlet {
 			System.out.println("not found"); 
 		}
 		
+		String gotoPage = "example/sportTo.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(gotoPage);
+		dispatcher.forward(request, response);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doProcess(request, response);

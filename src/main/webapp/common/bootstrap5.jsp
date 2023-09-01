@@ -7,7 +7,7 @@
 	<title>Insert title here</title>
 	<script src="./../js/jquery.js"></script>
 	<script src="./../js/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" href="./../bootstrap.min.css"> 
+	<link rel="stylesheet" href="/Student/src/main/webapp/bootstrap.min.css" type="text/css"> 
 </head>
 <body>
 
