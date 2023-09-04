@@ -105,7 +105,7 @@
 				
 				<div class="input-group">
 					<span class="input-group-text">입고일자</span>
-					<input class="form-control" type="datetime" id="inputdate" name="inputdate" value="<%=bean.getImputdate()%>">
+					<input class="form-control" type="datetime" id="inputdate" name="inputdate" value="<%=bean.getInputdate()%>">
 				</div>
 				<div id="button-set">
 					<a type="button" class="btn btn-primary">등록</a>

@@ -92,6 +92,7 @@
 	<div class="container">
 		<h2>회원 가입</h2>
 		<p>회원 가입하는 페이지 입니다.</p>
+		
 		<form action="<%=withFormTag%>" method="post">
 		<input type="hidden" name="command" value="meInsert">
 			<div class="input-group">
@@ -118,33 +119,33 @@
 				<span class="input-group-text">성별</span>
 				<div class="form-control">
 					<label class="radio-gender">
-						<input type="radio"id="1" name="gender" value="male">남자
+						<input type="radio"id="1" name="gender" value="남자">남자
 					</label>
 					<label class="radio-gender">
-						<input type="radio"id="2" name="gender" value="female">여자
+						<input type="radio"id="2" name="gender" value="여자">여자
 					</label>
 				</div>
 			</div>
 				<div class="input-group">
 					<span class="input-group-text">결혼여부</span>
 					<div class="form-control">
-						 <label class="radio-inline"><input type="radio" id="1" name="marriage"> 미혼</label>
-						 <label class="radio-inline"><input type="radio" id="2" name="marriage"> 결혼</label>
-						 <label class="radio-inline"><input type="radio" id="3" name="marriage"> 이혼</label>
+						 <label class="radio-inline"><input type="radio" id="1" value="미혼" name="marriage"> 미혼</label>
+						 <label class="radio-inline"><input type="radio" id="2" value="결혼" name="marriage"> 결혼</label>
+						 <label class="radio-inline"><input type="radio" id="3" value="이혼" name="marriage"> 이혼</label>
 					</div>
 				<div class="input-group">
 					<span class="input-group-text">봉급</span>
-					<input class="form-control" type="text" id="" name="">
+					<input class="form-control" type="text" id="salary" name="salary">
 				</div>
 				
 				<div class="input-group">
 					<span class="input-group-text">주소</span>
-					<input class="form-control" type="text" id="" name="">
+					<input class="form-control" type="text" id="address" name="address">
 				</div> 
 				
 				<div class="input-group">
 					<span class="input-group-text">매니저</span>
-					<input class="form-control" type="text" id="" name="">
+					<input class="form-control" type="text" id="manager" name="manager">
 				</div>
 			</div>
 			<div class="button-set">

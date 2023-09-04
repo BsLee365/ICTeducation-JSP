@@ -1,5 +1,10 @@
 # 구현해야 할 목록들
 home=com.shopping.controller.HomeController
 # member section
-meLogin=com.shopping.controller.MemberLoginController
-#meLogout=com.shopping.controller.MemberLogoutController
+meLogin=com.shopping.controller.member.MemberLoginController
+meLogout=com.shopping.controller.member.MemberLogoutController
+meInsert=com.shopping.controller.member.MemberInsertController
+boInsert=com.shopping.controller.board.BoardInsertController
+boList=com.shopping.controller.board.BoardListController
+meList=com.shopping.controller.member.MemberListController
+prList=com.shopping.controller.product.ProductListController

@@ -1,8 +1,10 @@
-package com.shopping.controller;
+package com.shopping.controller.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shopping.controller.HomeController;
+import com.shopping.controller.SuperClass;
 import com.shopping.model.bean.Member;
 import com.shopping.model.dao.MemberDao;
 

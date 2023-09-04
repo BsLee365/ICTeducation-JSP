@@ -26,6 +26,9 @@ public class Board {
 		this.depth = depth;
 	
 	}
+	public Board() {
+	
+	}
 	public Integer getDepth() {
 		return depth;
 	}

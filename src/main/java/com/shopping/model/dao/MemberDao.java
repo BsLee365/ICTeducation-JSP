@@ -2,6 +2,7 @@ package com.shopping.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class MemberDao extends SuperDao{
 		return bean;
 	}
 	private Member getBeanData(ResultSet rs) throws Exception{
-		//ResultSet의 데이터를 이용하여 Bean에 기록한 다음, 반환
+		//Result Set의 데이터를 이용하여 Bean에 기록한 다음, 반환
 		Member bean = new Member();
 		
 		bean.setId(rs.getString("id"));
@@ -70,6 +71,88 @@ public class MemberDao extends SuperDao{
 		bean.setPassword(rs.getString("password"));
 		bean.setGender(rs.getString("gender"));
 		bean.setBirth(String.valueOf(rs.getDate("birth")));
+		bean.setMarriage(rs.getString("marriage"));
+		bean.setSalary(rs.getInt("salary"));
+		bean.setAddress(rs.getString("address"));
+		bean.setManager(rs.getString("manager"));
+		
+		return bean;
+	}
+	public int InsertData(Member bean) throws SQLException {
+		System.out.println(bean);
+		//Bean 객체 정보를 이용하여 데이터 베이스에 추가합니다.
+		int cnt = -1;
+		
+		String sql = " insert into members(id, name, password, gender, birth, marriage, salary, address, manager)";
+		sql += " values(?,?,?,?,?,?,?,?,?)";
+		
+		
+		PreparedStatement pstmt = null;
+		conn = super.getConnection();
+		conn.setAutoCommit(false);
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		//데이터 삽입.
+		pstmt.setString(1, bean.getId());
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getPassword());
+		pstmt.setString(4, bean.getGender());
+		pstmt.setString(5, bean.getBirth());
+		pstmt.setString(6, bean.getMarriage());
+		pstmt.setInt(7, bean.getSalary());
+		pstmt.setString(8, bean.getAddress());
+		pstmt.setString(9, bean.getManager());
+		
+		cnt = pstmt.executeUpdate();
+		
+		conn.commit();
+		
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+
+		return cnt;
+	}
+	public List<Member> selectAll() throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> list = new ArrayList<Member>();
+		
+		String sql = "select * from members ";
+		
+		conn = super.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			list.add(getbeanData(rs));
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		return list;
+	}
+	public Member getbeanData(ResultSet rs) throws SQLException {
+		Member bean = new Member();
+		
+		bean.setName(rs.getString("name"));
+		bean.setId(rs.getString("id"));
+		bean.setPassword(rs.getString("password"));
+		bean.setGender(rs.getString("gender"));
+		bean.setBirth(rs.getString("birth"));
 		bean.setMarriage(rs.getString("marriage"));
 		bean.setSalary(rs.getInt("salary"));
 		bean.setAddress(rs.getString("address"));

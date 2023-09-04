@@ -3,4 +3,4 @@ company=IT 교육 센터
 ceo=김대표
 email=itcompany@naver.com
 phone=02123345443
-uploadPath=image
+uploadPath=upload

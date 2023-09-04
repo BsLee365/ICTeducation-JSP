@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
 import com.shopping.controller.SuperController;
 import com.shopping.utility.MyUtility;
 
@@ -40,6 +41,9 @@ public class FrontController extends HttpServlet {
     //읽어드린 todolist.txt 파일을 map으로 변환하기 위한 변수
     private Map<String, SuperController> todolistMap = null;
     
+    
+    //mageUploadWebPath 변수 : 실제 이미지가 업로드 되는 경로
+	private String imageUploadWebPath;
     public FrontController() {
        
     }
@@ -68,11 +72,20 @@ public class FrontController extends HttpServlet {
 		
 		application.setAttribute("map", this.settingMap);
 		
+		//int setting.txt 파일 내의 uploadPath=upload 항목 참조 요망
+		//이미지 업로드 경로를 변수에 저장합니다.
+		String imsiPath = settingMap.get("uploadPath");
+		if(imsiPath==null) {imsiPath ="imgae";}
+		//imageUploadWebPath 변수 : 실제 이미지가 업로드 되는 경로
+		imageUploadWebPath = application.getRealPath(imsiPath);
+		System.out.println("imageUploadWebPath :  " +  imageUploadWebPath);
+		
 		//todolist.txt를 map으로 바꿔줌.
 		this.todolistMap = MyUtility.getTodolistMap(todolistFile);
 		System.out.println("this.todolistMap : " + this.todolistMap.size());
 		
 	}
+	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("UTF-8");
 		
@@ -81,8 +94,20 @@ public class FrontController extends HttpServlet {
 		
 		if (command == null) { //파일이 없을 경우 
 			System.out.println("file upload event invoked");
+			
+			MultipartRequest mr = MyUtility.getMultipartRequest(request, imageUploadWebPath);
+			
+			if(mr != null) {
+				command = mr.getParameter("command");
+				//MyUtility.deleteOldImageFile(imageUploadWebPath, mr);
+				
+				//file upload object binding in request scope
+				request.setAttribute("mr", mr);
+			}else {
+				System.out.println("MultipartRequest object is null");
+			}
 		}
-		
+
 		System.out.println("command : " + command);
 		SuperController controller = this.todolistMap.get(command); //command랑 맞는 키 값을 대입, SuperController는 todolist.txt에 있는 key값을 가지고 있는 모든 컨트롤러의 타입을 지정해준다. 
 		//SuperController의 업캐스트로 doGet, doPost을 사용.

@@ -1,7 +1,7 @@
 <%@page import="com.shopping.model.bean.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@include file='./../common/bootstrap5.jsp'%> --%>
+<%@include file="./../common/bootstrap5.jsp"%>
 <%@ page import="java.util.*"%>
 <% 
     //appName = 애플리케이션 이름(프로젝트 이름_Student)
@@ -49,6 +49,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	
 	<!-- sweetalert 사용하기 위한 js파일 임포트 -->
 	<script type="text/javascript" src="./../js/sweetalert.js">
 	</script>
@@ -59,7 +60,7 @@
 		<!-- 공통으로 참조 되는 파일임. -->
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">쇼핑몰</a>
+			<a class="navbar-brand" href="<%=withFormTag%>?command=home">쇼핑몰</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
@@ -84,14 +85,14 @@
 							
 							<c:if test="${whologin eq 0}"> 
 								<!-- 로그인 안된 사람만 -->
-								<li><a class="dropdown-item" href="#">회원가입</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meInsert">회원가입</a></li>
 								<li><a class="dropdown-item" href="<%=notWithFormTag%>meLogin">로그인</a></li>
 								<!-- notWithFormTag = /Student/Shopping?command=meLogin -->
 							</c:if>
 							<c:if test="${whologin ne 0}">
 								<!-- 로그인 된 사람만 -->
 								<li><a class="dropdown-item" href="#">정보 수정</a></li>
-								<li><a class="dropdown-item" href="#">로그아웃</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meLogout">로그아웃</a></li>
 								<li><a class="dropdown-item" href="#">상세보기</a></li>
 								<li><a class="dropdown-item" href="#">탈퇴하기</a></li>
 								<li><a class="dropdown-item" href="#">목록보기</a></li>
@@ -105,9 +106,9 @@
 							data-bs-toggle="dropdown">게시물</a>
 							<ul class="dropdown-menu">
 								<c:if test="${whologin ne 0}"><!-- 회원만 -->
-									<li><a class="dropdown-item" href="#">게시물 등록</a></li>
+									<li><a class="dropdown-item" href="boInsert">게시물 등록</a></li>
 								</c:if>
-									<li><a class="dropdown-item" href="#">목록 보기</a></li>
+									<li><a class="dropdown-item" href="<%=notWithFormTag%>boList">목록보기</a></li>
 							</ul>
 						</li>
 						
@@ -116,13 +117,23 @@
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown">상품</a>
 						<ul class="dropdown-menu">
-							<!-- 관리자만 -->
 							<c:if test="${whologin ne 0}">
 								<li><a class="dropdown-item" href="#">상품 등록</a></li>
 							</c:if>
-								<li><a class="dropdown-item" href="#">상품 목록</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>prList">상품 목록</a></li>
 						</ul>
 					</li>
+					<c:if test="${whologin eq 2}">
+						<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button"
+							data-bs-toggle="dropdown">회원</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meList">목록 보기</a></li>
+							</ul>
+						</li>
+					</c:if>
+					<!-- 회원 목록 보기 / 관리자만-->
+					
 				</ul>
 			</div>
 		</div>

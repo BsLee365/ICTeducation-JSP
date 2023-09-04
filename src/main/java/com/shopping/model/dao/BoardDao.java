@@ -1,9 +1,13 @@
 package com.shopping.model.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.shopping.model.bean.Board;
+import com.shopping.model.bean.Member;
 
 public class BoardDao extends SuperDao{
 	public Board getDatabyPK(int no) {
@@ -21,5 +25,89 @@ public class BoardDao extends SuperDao{
         boards.add(new Board(5, "park", "qwerty", "미술", "오늘은 그림 그리기 좋은 날씨!", 10, "23/08/23", 2));
         
 		return boards;
+	}
+
+	
+	public int InsertData(Board bean) throws SQLException {
+		//게시물 Bean 데이터를 이용하여 등록합니다.
+		System.out.println(bean);
+		//Bean 객체 정보를 이용하여 데이터 베이스에 추가합니다.
+		int cnt = -1;
+		
+		String sql = " insert into boards(no, id, password, subject, content, regdate)";
+		sql += " values(seqboard.nextval,?,?,?,?,?)";
+		
+		
+		PreparedStatement pstmt = null;
+		conn = super.getConnection();
+		conn.setAutoCommit(false);
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		//데이터 삽입.
+		pstmt.setString(1, bean.getId());
+		pstmt.setString(2, bean.getPassword());
+		pstmt.setString(3, bean.getSubject());
+		pstmt.setString(4, bean.getContent());
+		pstmt.setString(5, bean.getRegdate());
+		
+		cnt = pstmt.executeUpdate();
+		
+		conn.commit();
+		
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+
+		return cnt;
+	}
+
+	public List<Board> selectAll() throws SQLException {
+		// 게시물 목록을 게시물 글번호 역순 정렬하여 반환합니다.
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from boards order by no desc";
+		
+		conn = super.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		
+		rs = pstmt.executeQuery();
+		
+		List<Board> lists = new ArrayList<Board>();
+		
+		while(rs.next()) {
+			lists.add(getBeanData(rs));
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		return lists;
+	}
+
+	private Board getBeanData(ResultSet rs) throws SQLException {
+		// ResultSet 정보를 bean으로 만들어서 반환해준다ㅏ.
+		Board bean = new Board();
+		
+		bean.setSubject(rs.getString("subject"));
+		bean.setContent(rs.getString("content"));
+
+		bean.setPassword(rs.getString("password"));
+		bean.setReadhit(rs.getInt("readhit"));
+		bean.setRegdate(String.valueOf(rs.getDate("regdate")));
+		
+		bean.setNo(rs.getInt("no"));
+		bean.setId(rs.getString("id"));
+		bean.setDepth(rs.getInt("depth"));
+		return bean;
 	}
 }

@@ -1,12 +1,15 @@
 package com.shopping.model.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.shopping.model.bean.Product;
 
-public class ProductDao {
+public class ProductDao extends SuperDao{
 	public Product findDataFK(int num) {
 		Product bean = new Product(num, "우유", "남양", "남양우유.jpg", null, null, 12, 3500, "유제품", "이것은 남양주에서 생산된 우유 입니다.", 100, "23/08/23");
 		
@@ -46,8 +49,52 @@ public class ProductDao {
 		else {
 			return new Product(3, "콜라", "남양", "redwine02.png", null, null, 12, 1500, "유제품", "이것은 남양주에서 생산된 콜라 입니다.", 100, "23/08/23");
 		}
+	}
+	
+	public List<Product>selectAll() throws SQLException {
+		List<Product> lists = new ArrayList<Product>();
+		//데이터 베이스 연결
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		conn = super.getConnection();
 		
+		String sql = "select * from products";
 		
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery(sql);
+		
+		while (rs.next()) {
+			lists.add(getDatabean(rs));
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+	
+		return lists;
+	}
+	public Product getDatabean(ResultSet rs) throws SQLException {
+		Product bean = new Product();
+		
+		bean.setNum(rs.getInt("pnum"));
+		bean.setName(rs.getString("name"));
+		bean.setCompany(rs.getString("company"));
+		bean.setImage01(rs.getString("image01"));
+		bean.setImage02(rs.getString("image02"));
+		bean.setImage03(rs.getString("image03"));
+		bean.setStock(rs.getInt("stock"));
+		bean.setPrice(rs.getInt("price"));
+		bean.setCategory(rs.getString("category"));
+		bean.setContents(rs.getString("contents"));
+		bean.setPoints(rs.getInt("point"));
+		bean.setInputdate(rs.getString("inputdate"));
+		
+		return bean;
 	}
 	
 }

@@ -14,10 +14,14 @@ public class Product {
 	private String category;
 	private String contents;
 	private Integer points;
-	private String imputdate;
+	private String inputdate;
+	
+	public Product() {
+		
+	}
 	
 	public Product(Integer num, String name, String company, String image01, String image02 , String image03, Integer stock, Integer price,
-			String category, String contents, Integer points, String imputdate) {
+			String category, String contents, Integer points, String inputdate) {
 		super();
 		this.num = num;
 		this.name = name;
@@ -30,14 +34,14 @@ public class Product {
 		this.category = category;
 		this.contents = contents;
 		this.points = points;
-		this.imputdate = imputdate;
+		this.inputdate = inputdate;
 	}
 	
 	@Override
 	public String toString() {
 		return "Product [num=" + num + ", name=" + name + ", company=" + company + ", image01=" + image01 + ", image02="
 				+ image02 + ", image03=" + image03 + ", stock=" + stock + ", price=" + price + ", category=" + category
-				+ ", contents=" + contents + ", points=" + points + ", imputdate=" + imputdate + "]";
+				+ ", contents=" + contents + ", points=" + points + ", Inputdate=" + inputdate + "]";
 	}
 	
 	public String getImage01() {
@@ -128,12 +132,12 @@ public class Product {
 		this.points = points;
 	}
 
-	public String getImputdate() {
-		return imputdate;
+	public String getInputdate() {
+		return inputdate;
 	}
 
-	public void setImputdate(String imputdate) {
-		this.imputdate = imputdate;
+	public void setInputdate(String inputdate) {
+		this.inputdate = inputdate;
 	}
 	
 	
