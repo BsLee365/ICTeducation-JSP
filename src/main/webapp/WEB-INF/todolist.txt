@@ -8,3 +8,6 @@ boInsert=com.shopping.controller.board.BoardInsertController
 boList=com.shopping.controller.board.BoardListController
 meList=com.shopping.controller.member.MemberListController
 prList=com.shopping.controller.product.ProductListController
+prInsert=com.shopping.controller.product.ProductInsertController
+meDetail=com.shopping.controller.member.MemberDetailController
+boDetail=com.shopping.controller.board.BoardDetailController

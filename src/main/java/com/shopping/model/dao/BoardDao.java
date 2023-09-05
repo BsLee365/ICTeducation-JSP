@@ -110,4 +110,30 @@ public class BoardDao extends SuperDao{
 		bean.setDepth(rs.getInt("depth"));
 		return bean;
 	}
+
+	public Board getDataByPrimaryKey(String no) throws SQLException {
+		String sql = "select * from boards where no=?";
+		Board bean = new Board();
+		
+		conn = super.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			bean = getBeanData(rs);
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		
+		return bean;
+	}
 }

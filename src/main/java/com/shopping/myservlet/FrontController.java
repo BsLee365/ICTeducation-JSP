@@ -102,7 +102,7 @@ public class FrontController extends HttpServlet {
 				//MyUtility.deleteOldImageFile(imageUploadWebPath, mr);
 				
 				//file upload object binding in request scope
-				request.setAttribute("mr", mr);
+				request.setAttribute("mr", mr);//승급이 됨.
 			}else {
 				System.out.println("MultipartRequest object is null");
 			}

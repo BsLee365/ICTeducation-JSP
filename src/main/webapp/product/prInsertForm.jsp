@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@include file='./../common/bootstrap5.jsp'%>
 <%@include file='./../common/common.jsp'%>
 
 <!DOCTYPE html>
@@ -20,11 +18,15 @@
   		}
   		#buttonset{margin-top: 15px;}
   		.radio_gender, .checkbox_hobby{font-size: 1.1rem;} /* 주위 글꼴의 1.1배 */
+  		
+  		#productPnum{display: none; visibility: hidden;}
   	</style>
   	<script type="text/javascript">
   		$(document).ready(function(){ 
   	  		$('#inputdate').datepicker({dateFormat: "yy/mm/dd"}); 
-  	  	 
+  	  	 	
+  	  		$('#category').prepend('<option value="aaa">bbb</option>');
+  	  		$('option').eq(2).attr('selected', true);
   		});
   		
   		function validCheck(){
@@ -138,9 +140,10 @@
 	<div class="container">
 		<h2>상품 등록</h2>
 		<p>관리자가 구매할 상품을 등록하는 페이지입니다.</p>
-		<form action="">
-			<div class="input-group">
-				<span class="input-group-text">상품 번호</span>
+		<form action="<%=withFormTag%>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="command" value="prInsert">
+			<div class="input-group" id="productPnum">
+				<span class="input-group-text" >상품 번호</span>
 				<input class="form-control" type="number" id="pnum" name="pnum">				
 			</div>
 			<div class="input-group">
@@ -152,8 +155,16 @@
 				<input class="form-control" type="text" id="company" name="company">				
 			</div>
 			<div class="input-group">
-				<span class="input-group-text">이미지</span>
+				<span class="input-group-text">이미지01</span>
 				<input class="form-control" type="file" id="image01" name="image01">				
+			</div>
+			<div class="input-group">
+				<span class="input-group-text">이미지02</span>
+				<input class="form-control" type="file" id="image02" name="image02">				
+			</div>
+			<div class="input-group">
+				<span class="input-group-text">이미지03</span>
+				<input class="form-control" type="file" id="image03" name="image03">				
 			</div>
 			<div class="input-group">
 				<span class="input-group-text">재고 수량</span>
@@ -166,10 +177,9 @@
 			<div class="input-group">
 				<span class="input-group-text">카테고리</span>
 				<select id="category" name="category" class="form-select form-select-lg">
-					<option value="-">-- 항목을 선택해 주세요</option>
-					<option value="bread">빵</option>
-					<option value="beverage">음료수</option>
-					<option value="cake">케익</option>
+					<c:forEach var="category" items="${requestScope.categories}">
+						<option value="${category.engname}">${category.korname}</option>
+					</c:forEach>
 				</select>				
 			</div>
 			<div class="input-group">
@@ -182,7 +192,7 @@
 			</div>			
 			<div class="input-group">
 				<span class="input-group-text">입고 일자</span>
-				<input class="form-control" type="datetime" id="inputdate" name="inputdate">				
+				<input class="form-control" type="date" id="inputdate" name="inputdate">				
 			</div>
 			<div id="buttonset" class="input-group">
 				<button type="submit" class="btn btn-primary btn-lg"

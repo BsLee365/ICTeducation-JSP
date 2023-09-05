@@ -13,7 +13,7 @@ public class Product {
 	private Integer price;
 	private String category;
 	private String contents;
-	private Integer points;
+	private Integer point;
 	private String inputdate;
 	
 	public Product() {
@@ -21,7 +21,7 @@ public class Product {
 	}
 	
 	public Product(Integer num, String name, String company, String image01, String image02 , String image03, Integer stock, Integer price,
-			String category, String contents, Integer points, String inputdate) {
+			String category, String contents, Integer point, String inputdate) {
 		super();
 		this.num = num;
 		this.name = name;
@@ -33,7 +33,7 @@ public class Product {
 		this.price = price;
 		this.category = category;
 		this.contents = contents;
-		this.points = points;
+		this.point = point;
 		this.inputdate = inputdate;
 	}
 	
@@ -41,7 +41,7 @@ public class Product {
 	public String toString() {
 		return "Product [num=" + num + ", name=" + name + ", company=" + company + ", image01=" + image01 + ", image02="
 				+ image02 + ", image03=" + image03 + ", stock=" + stock + ", price=" + price + ", category=" + category
-				+ ", contents=" + contents + ", points=" + points + ", Inputdate=" + inputdate + "]";
+				+ ", contents=" + contents + ", point=" + point + ", Inputdate=" + inputdate + "]";
 	}
 	
 	public String getImage01() {
@@ -124,12 +124,12 @@ public class Product {
 		this.contents = contents;
 	}
 
-	public Integer getPoints() {
-		return points;
+	public Integer getpoint() {
+		return point;
 	}
 
-	public void setPoints(Integer points) {
-		this.points = points;
+	public void setpoint(Integer point) {
+		this.point = point;
 	}
 
 	public String getInputdate() {

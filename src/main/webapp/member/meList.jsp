@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file='./../common/bootstrap5.jsp'%>
 <%@include file='./../common/common.jsp'%>
 <%@page import="java.util.List" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -20,7 +19,7 @@
 			<!-- table-hover table-striped table-condensed-->
 				<thead >
 					<tr class="table-dark">
-						<th>아이디</th>
+						<th><a class="dropdown-item" href="<%=notWithFormTag%>meDetail&id=${bean.id}"></a>아이디</th>
 						<th>이름</th>
 						<th>비밀 번호</th>
 						<th>성별</th>
@@ -34,7 +33,7 @@
 				<tbody>
 					<c:forEach var="bean" items="${requestScope.datalist}">
 					<tr>
-						<td>${bean.id}
+						<td><a href="<%=notWithFormTag%>meDetail&id=${bean.id}">${bean.id}</a></td>
 						<td>${bean.name}
 						<td>${bean.password}
 						<td>${bean.gender}

@@ -91,10 +91,48 @@ public class ProductDao extends SuperDao{
 		bean.setPrice(rs.getInt("price"));
 		bean.setCategory(rs.getString("category"));
 		bean.setContents(rs.getString("contents"));
-		bean.setPoints(rs.getInt("point"));
+		bean.setpoint(rs.getInt("point"));
 		bean.setInputdate(rs.getString("inputdate"));
 		
 		return bean;
+	}
+	public int InsertData(Product bean) throws SQLException {
+		//기입한 상품 정보를 이용하여 데이터 베이스에 추가합니다.
+		System.out.println("상품 등록 빈 : " + bean);
+		
+		PreparedStatement pstmt = null;
+		String sql = "insert into products(pnum,name,company,image01,image02,image03,stock,price,category,contents,point,inputdate)";
+		sql += " values(seqprod.nextval,?,?,?,?,?,?,?,?,?,?,?) ";
+		
+		int cnt = -1;
+		
+		conn = super.getConnection();
+		conn.setAutoCommit(false);
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, bean.getName());
+		pstmt.setString(2, bean.getCompany());
+		pstmt.setString(3, bean.getImage01());
+		pstmt.setString(4, bean.getImage02());
+		pstmt.setString(5, bean.getImage03());
+		pstmt.setInt(6, bean.getStock());
+		pstmt.setInt(7, bean.getPrice());
+		pstmt.setString(8, bean.getCategory());
+		pstmt.setString(9, bean.getContents());
+		pstmt.setInt(10, bean.getpoint());
+		pstmt.setString(11, bean.getInputdate());
+		cnt = pstmt.executeUpdate();
+		
+		conn.commit();
+		
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		
+		return cnt;
 	}
 	
 }

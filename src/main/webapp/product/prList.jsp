@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@include file='./../common/bootstrap5.jsp'%>
     <%@include file='./../common/common.jsp'%>
     <%@page import="com.shopping.model.dao.ProductDao" %>
     <%@page import="com.shopping.model.bean.Product" %>
@@ -62,7 +61,7 @@
 						<td>
 							<div class="card" style="width: 19rem;">
 								<a class="removeUnderLine" href="prDetail02.jsp?num=${bean.num}">
-									<img alt="${bean.name}" src="${pageContext.request.contextPath}/image/images/${bean.image01}" style="width: 100%;">
+									<img alt="${bean.name}" src="${pageContext.request.contextPath}/upload" style="width: 100%;">
 										<div class="card-body">
 											<h5 class="card-title">${bean.name}</h5>
 											

@@ -49,4 +49,17 @@ public class SuperClass implements SuperController {
 		}
 		
 	}
+
+	public Integer getNumberData(String parameter) {
+		//숫자형 파라미터에 대한 처리를 메소드
+		// 잘못된 숫자형식이면 0을 반환해 줍니다.
+		boolean flag = false;
+		
+		flag = parameter == null;
+		
+		flag = parameter == null || parameter.equals("") || parameter.equals("null");
+		
+		return flag ? 0 : Integer.parseInt(parameter);
+	}
+	
 }

@@ -23,6 +23,6 @@ public class MemberListController extends SuperClass{
 		/* System.out.println(lists); */
 		
 		request.setAttribute("datalist", lists);
-		gotoPage("member/mList.jsp");
+		gotoPage("member/meList.jsp");
 	}
 }

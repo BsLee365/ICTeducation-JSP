@@ -76,7 +76,5 @@ public class Board {
 	}
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
-	}
-	
-	
+	}	
 }

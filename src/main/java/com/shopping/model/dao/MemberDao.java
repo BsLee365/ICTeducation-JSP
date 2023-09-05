@@ -160,4 +160,38 @@ public class MemberDao extends SuperDao{
 		
 		return bean;
 	}
+	public Member getDataByPrimaryKey(String id) throws Exception {
+		//기본 키 정보를 이용하여 Bean 객체를 구합니다.
+		String sql = "select * from members";
+		sql += " where id=?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		conn = super.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, id);
+		
+		rs = pstmt.executeQuery();
+		
+		Member bean = null;
+		
+		if(rs.next()) {
+			bean = getBeanData(rs);
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		
+		return bean;
+	}
+
 }

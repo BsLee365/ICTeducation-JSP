@@ -100,7 +100,7 @@
 				
 				<div class="input-group">
 					<span class="input-group-text">적립 포인트</span>
-					<input class="form-control" type="number" id="point" name="point" value="<%=bean.getPoints()%>">
+					<input class="form-control" type="number" id="point" name="point" value="<%=bean.getpoint()%>">
 				</div>
 				
 				<div class="input-group">

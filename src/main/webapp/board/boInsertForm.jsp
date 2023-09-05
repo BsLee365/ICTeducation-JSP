@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file='./../common/bootstrap5.jsp'%>
 <%@include file='./../common/common.jsp'%>
 
 <%@page import="com.shopping.model.bean.Board" %>
@@ -37,7 +36,7 @@
 		<p>사용자들이 게시물을 작성하는 페이지입니다.</p>
 		
 		<form action="<%=withFormTag%>" method="post">
-			<input type="hidden" name="command" value="boInsert">
+			<input type="hidden" name="command" value="boInsert"> <!-- 진짜 form전송 -->
 			<div id="boardNo" class="input-group">
 				<span class="input-group-text col-md-2">게시물 번호</span> 
 				<input disabled id="no" name="no" type="number" class="form-control" value=<%=bean.getNo()%>>
@@ -52,7 +51,7 @@
 			<span class="input-group-text col-md-2">작성자</span> 
 				<c:set var="userInfo" value="${sessionScope.loginfo.name}(${sessionScope.loginfo.id })"></c:set>
 					<input id="fakeid" name="fakeid" disabled type="text" placeholder="" class="form-control" value="${userInfo}">
-					<input id="id" name="id" type="text" value="${sessionScope.loginfo.id}">
+					<input id="id" name="id" type="hidden" value="${sessionScope.loginfo.id}">
 			</div>
 
 			<div class="input-group">

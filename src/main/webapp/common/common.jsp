@@ -1,7 +1,7 @@
 <%@page import="com.shopping.model.bean.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="./../common/bootstrap5.jsp"%>
+<%@ include file="./bootstrap5.jsp" %>
 <%@ page import="java.util.*"%>
 <% 
     //appName = 애플리케이션 이름(프로젝트 이름_Student)
@@ -51,7 +51,7 @@
 	<head>
 	
 	<!-- sweetalert 사용하기 위한 js파일 임포트 -->
-	<script type="text/javascript" src="./../js/sweetalert.js">
+	<!-- <script type="text/javascript" src="./../js/sweetalert.js"> -->
 	</script>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
@@ -93,7 +93,7 @@
 								<!-- 로그인 된 사람만 -->
 								<li><a class="dropdown-item" href="#">정보 수정</a></li>
 								<li><a class="dropdown-item" href="<%=notWithFormTag%>meLogout">로그아웃</a></li>
-								<li><a class="dropdown-item" href="#">상세보기</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meDetail&id=${sessionScope.loginfo.id}">상세보기</a></li>
 								<li><a class="dropdown-item" href="#">탈퇴하기</a></li>
 								<li><a class="dropdown-item" href="#">목록보기</a></li>
 							</c:if>
@@ -106,7 +106,7 @@
 							data-bs-toggle="dropdown">게시물</a>
 							<ul class="dropdown-menu">
 								<c:if test="${whologin ne 0}"><!-- 회원만 -->
-									<li><a class="dropdown-item" href="boInsert">게시물 등록</a></li>
+									<li><a class="dropdown-item" href="<%=notWithFormTag%>boInsert">게시물 등록</a></li>
 								</c:if>
 									<li><a class="dropdown-item" href="<%=notWithFormTag%>boList">목록보기</a></li>
 							</ul>
@@ -118,7 +118,7 @@
 						data-bs-toggle="dropdown">상품</a>
 						<ul class="dropdown-menu">
 							<c:if test="${whologin ne 0}">
-								<li><a class="dropdown-item" href="#">상품 등록</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>prInsert">상품 등록</a></li>
 							</c:if>
 								<li><a class="dropdown-item" href="<%=notWithFormTag%>prList">상품 목록</a></li>
 						</ul>
