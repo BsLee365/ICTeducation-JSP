@@ -37,6 +37,7 @@ public class Paging {
 				_pageSize = "10";
 			}
 		}
+		//String으로 준 이유가 파라미터는 String으로 넘겨주기 때문에.
 		this.pageSize = Integer.parseInt(_pageSize);
 		
 		this.totalCount = totalCount;
@@ -72,7 +73,7 @@ public class Paging {
 		this.pagingHtml = this.getMakePagingHtml();
 	}
 
-	private String getMakePagingHtml() {
+	private String getMakePagingHtml() {//boList.jsp에서 호출됨.
 		String html = "<ul class=\"pagination justify-content-center\">";
 		
 		if(pageNumber <= pageCount) {

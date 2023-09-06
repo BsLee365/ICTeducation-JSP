@@ -17,7 +17,7 @@ public class BoardListController extends SuperClass{
 		super.doGet(request, response);
 		
 		//페이징 처리를 위한 파라미터들
-		String pageNumber = request.getParameter("pageNumber"); //출처?
+		String pageNumber = request.getParameter("pageNumber"); //Paging.java에서 result로 받음.
 		String pageSize = request.getParameter("pageSize");
 		String mode = request.getParameter("mode");
 		String keyword = request.getParameter("keyword");
@@ -26,8 +26,9 @@ public class BoardListController extends SuperClass{
 		BoardDao dao = new BoardDao();
 		
 		try {
-			int totalCount = dao.GetTotalRecordCount(); //수정예정
-			String url = super.getUrlInfomation("boList");
+			int totalCount = dao.GetTotalRecordCount(); //데이터 베이스에서 count(*)로 총 데이터 갯수 가져옴.
+			String url = super.getUrlInfomation("boList"); //URL경로를 재지정.
+			
 			boolean isGrid = false;
 			
 			Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, mode, keyword, isGrid);
