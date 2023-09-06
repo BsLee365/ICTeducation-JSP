@@ -6,9 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
-
 import com.shopping.model.bean.Member;
+import com.shopping.utility.Paging;
 
 public class MemberDao extends SuperDao{
 	
@@ -145,6 +144,39 @@ public class MemberDao extends SuperDao{
 		}
 		return list;
 	}
+	
+	public List<Member> selectAll(Paging pageInfo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> lists = new ArrayList<Member>();
+		
+		String sql = "select id,name,password,gender,birth,marriage,salary,address,manager from (select id,name, rank() over(order by name) as ranking ,password,gender,birth,marriage,salary,address,manager from members) where ranking between ? and ?"; //수정
+		
+		conn = super.getConnection();
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pageInfo.getBeginRow());
+		pstmt.setInt(2, pageInfo.getEndRow());
+		
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			lists.add(getbeanData(rs));
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		return lists;
+	}
+	
 	public Member getbeanData(ResultSet rs) throws SQLException {
 		Member bean = new Member();
 		
@@ -192,6 +224,30 @@ public class MemberDao extends SuperDao{
 		}
 		
 		return bean;
+	}
+	public int GetTotalRecordCount() throws SQLException {
+		//테이블의 총 행개수를 구합니다.
+		String sql = " select count(*) as cnt from members " ;
+			
+		conn = super.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+				
+		int cnt = -1;
+		if(rs.next()) {
+			cnt = rs.getInt("cnt");
+		}
+				
+		if(rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		return cnt;
 	}
 
 }

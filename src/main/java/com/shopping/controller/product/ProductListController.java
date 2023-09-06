@@ -9,19 +9,43 @@ import javax.servlet.http.HttpServletResponse;
 import com.shopping.controller.SuperClass;
 import com.shopping.model.bean.Product;
 import com.shopping.model.dao.ProductDao;
+import com.shopping.utility.Paging;
 
 public class ProductListController extends SuperClass{
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super.doGet(request, response);
-
-		List<Product> lists = new ArrayList<Product>();
-		ProductDao dao = new ProductDao();
-		lists = dao.selectAll();
 		
-		System.out.println(lists);
-		request.setAttribute("datalist", lists);
+		//페이징 처리를 위한 파라미터들
+		String pageNumber = request.getParameter("pageNumber"); //Paging.java에서 result변수
+		String pageSize = request.getParameter("pageSize");
+		String mode = request.getParameter("mode");
+		String keyword = request.getParameter("keyword");
+		
+		System.out.println("pageNumber : " + pageNumber);
+		
+		ProductDao dao = new ProductDao();
+		try {
 
-		super.gotoPage("/product/prList.jsp");
+			int totalCount = dao.GetTotalRecordCount();
+			String url = super.getUrlInfomation("prList");
+			boolean isGrid = true;
+			Paging pageInfo = new Paging(pageNumber, pageSize,totalCount,url,  mode, keyword, isGrid);
+			
+			//여기까지 실행 됨.
+			List<Product> lists = dao.selectAll(pageInfo);
+			
+			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("datalist", lists);
+			
+			super.gotoPage("product/prList.jsp");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		
+		
+
 	}
 }

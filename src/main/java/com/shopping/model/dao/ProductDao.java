@@ -4,10 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import com.shopping.model.bean.Member;
 import com.shopping.model.bean.Product;
+import com.shopping.utility.Paging;
 
 public class ProductDao extends SuperDao{
 	public Product findDataFK(int num) {
@@ -31,8 +32,7 @@ public class ProductDao extends SuperDao{
 	
 	public Product getDataByPK02(int pnum) {
 		
-		 ProductDao dao = new ProductDao(); List<Product> products =
-		 dao.getDataList();
+		 ProductDao dao = new ProductDao(); List<Product> products = dao.getDataList();
 		  
 		 for (int i = 1; i < products.size(); i++) {
 		  
@@ -78,6 +78,41 @@ public class ProductDao extends SuperDao{
 	
 		return lists;
 	}
+	
+	public List<Product> selectAll(Paging pageInfo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Product> lists = new ArrayList<Product>();
+		
+		String sql = "";
+		sql = "select pnum, name, company, image01, image02, image03, stock, price, category, contents, point, inputdate from (select pnum, name, company, image01, image02, image03, stock, price, category, contents, point, inputdate, rank()over(order by pnum desc) as ranking from products) where ranking between ? and ?";
+		
+		conn = super.getConnection();
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, pageInfo.getBeginRow());
+		pstmt.setInt(2, pageInfo.getEndRow());
+	
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			lists.add(getDatabean(rs));
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		return lists;
+	}
+	
 	public Product getDatabean(ResultSet rs) throws SQLException {
 		Product bean = new Product();
 		
@@ -135,4 +170,28 @@ public class ProductDao extends SuperDao{
 		return cnt;
 	}
 	
+	public int GetTotalRecordCount() throws SQLException {
+		//테이블의 총 행개수를 구합니다.
+		String sql = " select count(*) as cnt from products " ;
+			
+		conn = super.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+				
+		int cnt = -1;
+		if(rs.next()) {
+			cnt = rs.getInt("cnt");
+		}
+				
+		if(rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		return cnt;
+	}
 }

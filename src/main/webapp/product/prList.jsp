@@ -10,7 +10,6 @@
 <html>
 	<head>
 	<link rel="stylesheet" href="css/jquery-picZoomer.css">
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="src/jquery.picZoomer.js"></script>
 	   <script type="text/javascript">
       $(document).ready(function(){
@@ -60,8 +59,8 @@
 						</c:if>
 						<td>
 							<div class="card" style="width: 19rem;">
-								<a class="removeUnderLine" href="prDetail02.jsp?num=${bean.num}">
-									<img alt="${bean.name}" src="${pageContext.request.contextPath}/upload" style="width: 100%;">
+								<a class="removeUnderLine" href="/prDetail02.jsp?num=${bean.num}">
+									<img alt="${bean.name}" src="${pageContext.request.contextPath}/upload/${bean.image01}" style="width: 100%;">
 										<div class="card-body">
 											<h5 class="card-title">${bean.name}</h5>
 											
@@ -83,7 +82,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			
+			${requestScope.pageInfo.pagingHtml}
 		</div>
 	</body>
 </html>

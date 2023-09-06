@@ -14,9 +14,10 @@
 		<div class="container">
 			<h2>회원 목록</h2>
 			<p>회원 목록을 보여주는 페이지 입니다.</p>
-			
+			<p style="text-align: right;">${requestScope.pageInfo.pagingStatus}</p>
 			<table class="table table-hover">
 			<!-- table-hover table-striped table-condensed-->
+			<%-- <tr><td colspan="9" align="right">${requestScope.pageInfo.pagingStatus}</td></tr> --%>
 				<thead >
 					<tr class="table-dark">
 						<th><a class="dropdown-item" href="<%=notWithFormTag%>meDetail&id=${bean.id}"></a>아이디</th>
@@ -58,30 +59,7 @@
 				</tbody>
 			</table>
 			
-			
-			<ul class="pagination">
-				<li class="page-item">
-					<a class="page-link" href="#">1</a>
-				</li>
-				<li class="page-item active">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item disabled">
-					<a class="page-link" href="#">4</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">5</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">6</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">7</a>
-				</li>
-			</ul>
+			${requestScope.pageInfo.pagingHtml}
 		</div>
 	</body>
 </html>

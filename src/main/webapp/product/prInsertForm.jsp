@@ -139,7 +139,7 @@
 <body>
 	<div class="container">
 		<h2>상품 등록</h2>
-		<p>관리자가 구매할 상품을 등록하는 페이지입니다.</p>
+		<p>관리자가 구매할 상품을 등록하는 페이지입니다.<%=withFormTag%></p>
 		<form action="<%=withFormTag%>" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="command" value="prInsert">
 			<div class="input-group" id="productPnum">

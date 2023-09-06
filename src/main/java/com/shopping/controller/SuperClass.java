@@ -61,5 +61,15 @@ public class SuperClass implements SuperController {
 		
 		return flag ? 0 : Integer.parseInt(parameter);
 	}
+
+	public String getUrlInfomation(String todoCommand) {
+		//todoCommand : todolist.txt 파일에 명시에 커맨드 이름
+		//command 이름을 사용하여 FullName 웹 주소 형식으로 반환해 줍니다.
+		String appName = request.getContextPath();
+		String mappingName = "/Shopping";
+		String text = appName + mappingName + "?command=" + todoCommand;
+		
+		return text;
+	}
 	
 }

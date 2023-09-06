@@ -1,10 +1,11 @@
 <%@page import="com.shopping.utility.Paging"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file='./../common/common.jsp'%>
 <%
-	String _pageNumber = "25" ;
+	String _pageNumber = "12" ;
 	String _pageSize = "10" ;
-	int totalCount = 280 ;
+	int totalCount = 283 ;
 	String url = "boList" ;
 	String mode = "" ;
 	String keyword = "" ;
@@ -21,5 +22,7 @@
 </head>
 <body>
 	<%=pageInfo.toString()%>
+	<hr>
+	<%=pageInfo.getPagingHtml()%>
 </body>
 </html>
