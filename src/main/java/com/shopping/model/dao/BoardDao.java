@@ -10,6 +10,10 @@ import com.shopping.model.bean.Board;
 import com.shopping.utility.Paging;
 
 public class BoardDao extends SuperDao{
+	
+	
+	
+	
 	public Board getDatabyPK(int no) {
 		Board bean = new Board(no, "hong", "1234", "수학", "수학의 정석은 재밌다.", 12, "23/08/23", 0);
 		return bean;
@@ -125,8 +129,21 @@ public class BoardDao extends SuperDao{
 		
 		String sql = " select no, id, password, subject, content, readhit, regdate, remark, depth " ;
 		sql += " from (select no, id, password, subject, content, readhit, regdate, remark, depth, rank() over(order by no desc) as ranking " ;
-		sql += " from boards) " ;
+		sql += " from boards ";
+		
+		String mode = pageInfo.getMode();
+		String keyword = pageInfo.getKeyword();
+		
+		if (mode == null || mode.equals("all")) {
+			mode = "all";
+		}else {//전체 모드가 아니면.
+			sql += " where "+ mode + " like '%" + keyword + "%'";
+		}
+		
+		sql += ") " ;
 		sql += " where ranking between ? and ? " ;
+		
+		
 		
 		conn = super.getConnection();
 		
@@ -195,5 +212,102 @@ public class BoardDao extends SuperDao{
 		}
 		
 		return bean;
+	}
+
+	public int GetTotalRecordCount(String mode, String keyword) throws SQLException {
+		System.out.println("검색할 필드명 : " + mode);
+		System.out.println("검색할 키워드 : " + keyword);
+		
+		String sql = "select count(*) as cnt from boards";
+		
+		if (mode == null || mode.equals("all")) {
+			mode = "all";
+		}else {//전체 모드가 아니면.
+			sql += " where "+ mode + " like '%" + keyword + "%'";
+		}
+		
+		conn = super.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);	
+		ResultSet rs = pstmt.executeQuery();
+
+		int cnt = -1;
+		
+		if (rs.next()) {
+			cnt = rs.getInt("cnt");
+		}
+
+		if (rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		
+		
+		return cnt;
+	}
+
+	public Board getNoData(Integer no) throws SQLException { //pk로 모든 데이터 가져옴.
+		String sql = "select * from boards where no=?";
+		Board bean = new Board();
+		
+		conn = super.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			bean = getBeanData(rs);
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+		
+		return bean;
+	}
+
+	public int UpdateData(Board bean) throws SQLException {
+		System.out.println("게시글 수정 빈 : " + bean);
+	
+		PreparedStatement pstmt = null;
+		String sql = "update boards set id=?, password=?, subject=?, content=?, readhit=?, regdate=?";
+		sql += " where no=?";
+		
+		int cnt = -1;
+		
+		conn = super.getConnection();
+		conn.setAutoCommit(false);
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, bean.getId());
+		pstmt.setString(2, bean.getPassword());
+		pstmt.setString(3, bean.getSubject());
+		pstmt.setString(4, bean.getContent());
+		pstmt.setInt(5, bean.getReadhit());
+		pstmt.setString(6, bean.getRegdate());
+		pstmt.setInt(7, bean.getNo());
+		
+		cnt = pstmt.executeUpdate();
+
+		conn.commit();
+		
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		System.out.println("업데이트 완료");
+		return cnt;
 	}
 }

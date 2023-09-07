@@ -11,3 +11,5 @@ prList=com.shopping.controller.product.ProductListController
 prInsert=com.shopping.controller.product.ProductInsertController
 meDetail=com.shopping.controller.member.MemberDetailController
 boDetail=com.shopping.controller.board.BoardDetailController
+prUpdate=com.shopping.controller.product.ProductUpdateController
+boUpdate=com.shopping.controller.board.BoardUpdateController

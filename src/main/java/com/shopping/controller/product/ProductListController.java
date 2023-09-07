@@ -27,12 +27,14 @@ public class ProductListController extends SuperClass{
 		ProductDao dao = new ProductDao();
 		try {
 
-			int totalCount = dao.GetTotalRecordCount();
+			//int totalCount = dao.GetTotalRecordCount();//모든 항목을 가져옴.
+			
+			
+			int totalCount = dao.GetTotalRecordCount(mode, keyword);
 			String url = super.getUrlInfomation("prList");
 			boolean isGrid = true;
 			Paging pageInfo = new Paging(pageNumber, pageSize,totalCount,url,  mode, keyword, isGrid);
 			
-			//여기까지 실행 됨.
 			List<Product> lists = dao.selectAll(pageInfo);
 			
 			request.setAttribute("pageInfo", pageInfo);

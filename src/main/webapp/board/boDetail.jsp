@@ -44,7 +44,7 @@
 			<span class="input-group-text">조회수</span>
 			<input type="text" value="${bean.readhit}" class="input-group-text" readonly="readonly"/>
 		</div>
-		<div class="input-group">
+		<div class="input-group">	
 			<span class="input-group-text">업로드 일자</span>
 			<input type="text" value="${bean.regdate}" class="input-group-text" readonly="readonly"/>
 		</div>

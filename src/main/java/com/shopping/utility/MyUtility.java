@@ -1,13 +1,10 @@
 package com.shopping.utility;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.plaf.multi.MultiMenuItemUI;
@@ -20,6 +17,24 @@ import com.shopping.controller.SuperController;
 import com.shopping.transport.VehicleController;
 
 public class MyUtility {
+	public static void deleteOldImageFile(String webPath, MultipartRequest mr) {
+		// 상품 수정시 과거에 업로드했던 이미지를 웹 서버에서 삭제합니다.
+		String [] deleteImages = 
+			{mr.getParameter("deleteImage01"),
+				mr.getParameter("deleteImage01"),
+				mr.getParameter("deleteImage01")
+			};
+		for(String delFile: deleteImages) {
+			if(delFile != null) {
+				String deleteFile = webPath + "/" + delFile;
+				File target = new File(deleteFile);
+				if(target.delete()) {
+					System.out.println(deleteFile + "파일이 지워졌습니다.");
+				}
+			}
+		}
+	}
+	
 	
 	public static Map<String, VehicleController> getTransportationMap(String webFullPathName){
 	//운송 수단 텍스트 파일을 이용하여 각각 동적으로 객체를 생성

@@ -96,8 +96,13 @@ public class FrontController extends HttpServlet {
 			
 			MultipartRequest mr = MyUtility.getMultipartRequest(request, imageUploadWebPath);
 			
-			if(mr != null) {
+			if(mr != null) {//prUpdateForm.jsp에서 업데이트 하면서 기존에 있던 파일은 삭제.
 				command = mr.getParameter("command");
+				
+				if(command.equals("prUpdate")) {
+					MyUtility.deleteOldImageFile(imageUploadWebPath, mr);
+				}
+				
 				//MyUtility.deleteOldImageFile(imageUploadWebPath, mr);
 				
 				//file upload object binding in request scope

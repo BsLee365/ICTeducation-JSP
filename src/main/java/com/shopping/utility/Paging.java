@@ -47,11 +47,11 @@ public class Paging {
 		this.mode = mode == null? "all": mode;
 		this.keyword = keyword == null? "" : keyword;
 		
-		double _totalPage = (double)totalCount/pageSize; //28.3
+		double _totalPage = (double)totalCount/pageSize; //28.3, 전체데이터/한페이지당 보여줄 데이터
 		totalPage = (int)Math.ceil(_totalPage);
 		
-		beginRow = (pageNumber -1) * pageSize + 1;
-		endRow = pageNumber * pageSize;
+		beginRow = (pageNumber -1) * pageSize + 1;//첫페이지라면 (1-1)*10 + 1 = 1
+		endRow = pageNumber * pageSize; //첫 페이지라면 1 * 10 = 10까지
 		
 		if(endRow > totalCount) {
 			endRow = totalCount;

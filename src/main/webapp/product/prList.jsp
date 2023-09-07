@@ -18,8 +18,22 @@
          var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
               return new bootstrap.Popover(popoverTriggerEl);
          });
+         $('#keyword').val('${requestScope.pageInfo.keyword}');
+     	 $('#mode').val('${requestScope.pageInfo.mode}');
 
       });
+      function searchAll(){
+     	 location.href = '<%=notWithFormTag%>prList';
+      }
+      
+      function writeForm(){
+     	if(${whologin} == 0){
+			alert('회원 정보가 없습니다.');
+			location.href = '<%=notWithFormTag%>prList';
+		}else{
+			location.href = '<%=notWithFormTag%>prInsert';
+		}
+      }
    </script>
 	<style type="text/css">
 	.container{margin-top : 10px;}
@@ -37,6 +51,9 @@
 	.removeUnderLine {
 		text-decoration-line: none;
 	}
+	.po{
+		/* flex: 0 0 0%; */
+	}
 	</style>
 <meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -45,6 +62,51 @@
 		<div class="container">
 			<h2><a style="text-decoration: none; color: black;" href="./prList02.jsp">상품 목록</a></h2>
 			<p>고객들이 구매하고자하는 상품들의 목록을 보여주는 페이지 입니다.</p>
+			
+			<!-- 검색기능 -->
+			<hr>
+						<div class="row">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-10">
+								<form name="myform" action="<%=withFormTag%>" method="get">
+									<input type="hidden" name="command" value="prList">
+									<div class="row">
+										<div class="col-sm-3 mode">
+											<select class="form-control form-control-sm" id="mode"
+												name="mode">
+												<option value="all" selected="selected">--- 선택해 주세요 ---
+												<option value="name">제품명
+												<option value="category">카테고리
+												<option value="contents">글내용
+												<option value="company">제조회사
+											</select>
+										</div>
+										<div class="col-sm-2 keyword">
+											<input class="form-control form-control-sm" type="text"
+												name="keyword" id="keyword" placeholder="키워드 입력">
+										</div>
+										<div class="col">
+											<button type="submit" class="btn btn-warning form-control-sm"
+												onclick="">검색</button>
+										</div>
+										<div class="col">
+											<button type="button" class="btn btn-warning form-control-sm"
+												onclick="searchAll();">전체 검색</button>
+										</div>
+										<div class="col">
+											<button type="button" class="btn btn-info form-control-sm"
+												onclick="writeForm();">글 쓰기</button>
+										</div>
+										<div class="col">${requestScope.pageInfo.pagingStatus}</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-sm-1"></div>
+						</div>
+						<hr>
+						<!-- 검색기능 끝 -->
+						
+
 			<table class="table table-borderless">
 			<!-- table-hover table-striped table-condensed-->
 				<thead>
@@ -59,7 +121,7 @@
 						</c:if>
 						<td>
 							<div class="card" style="width: 19rem;">
-								<a class="removeUnderLine" href="/prDetail02.jsp?num=${bean.num}">
+								<a class="removeUnderLine" href="<%=notWithFormTag%>prDetail&num=${bean.num}"> <!-- 작동안됨. -->
 									<img alt="${bean.name}" src="${pageContext.request.contextPath}/upload/${bean.image01}" style="width: 100%;">
 										<div class="card-body">
 											<h5 class="card-title">${bean.name}</h5>
@@ -74,6 +136,16 @@
 											</span>
 										</div>	
 								</a>
+								<!-- 상품 수정 삭제 -->
+								
+								<c:if test="${whologin eq 2}">
+									<div>
+										<a id="updateAnchor" class="btn btn-info" href="<%=notWithFormTag%>prUpdate&pnum=${bean.num}">수정</a>
+										<a id="deleteAnchor" class="btn btn-danger" href="#">삭제</a>
+									</div>
+								</c:if>
+								<!-- 상품 수정 삭제 끝-->
+
 							</div>
 						</td>
 						<c:if test="${status.index mod colsu == (colsu-1)}">
