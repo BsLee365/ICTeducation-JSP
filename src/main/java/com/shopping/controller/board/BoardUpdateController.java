@@ -1,5 +1,6 @@
 package com.shopping.controller.board;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,7 +33,6 @@ public class BoardUpdateController extends SuperClass {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		super.doPost(request, response);
-		System.out.println("컨트롤러!");
 		Board bean = new Board();
 		
 		bean.setId(request.getParameter("id"));
@@ -55,7 +55,16 @@ public class BoardUpdateController extends SuperClass {
 				
 			}else {//성공
 				//게시물 목록 보기 페이지로 이동
-				new BoardListController().doGet(request, response);
+				//현재 진행중인 페이지로 이동하기 위하여 페이징 관련 파라미터도 넘겨 주어야 합니다.
+				// boList로 가기 위한 컨트롤러 new BoardListController().doGet(request, response);
+				
+				String gotopage = super.getUrlInfomation("boList");
+				gotopage += "&pageNumber=" + request.getParameter("pageNumber");
+				gotopage += "&pageSize=" + request.getParameter("pageSize");
+				gotopage += "&mode=" + request.getParameter("mode");
+				gotopage += "&keyword=" + request.getParameter("keyword");
+				response.sendRedirect(gotopage);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

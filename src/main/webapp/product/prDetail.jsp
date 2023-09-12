@@ -1,22 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@include file='./../common/common.jsp'%>
-    <%@page import='com.shopping.model.dao.ProductDao'%>
-    <%@page import='com.shopping.model.bean.Product'%>
-<%
-	request.setCharacterEncoding("utf-8");
-	int pnum = Integer.parseInt(request.getParameter("num"));
-	ProductDao dao = new ProductDao();
-	Product bean = dao.getDataByPK02(pnum);
-	
-	request.setAttribute("bean", bean); //바인딩
-%>
+
 <!DOCTYPE html>
 <html>
 	<head>
 	<!-- 그림 확대 js css -->
-	<link rel="stylesheet" href="./../css/jquery-picZoomer.css">
-	<script src="./../js/jquery.picZoomer.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-picZoomer.css">
+	<script src="${pageContext.request.contextPath}/js/jquery.picZoomer.js"></script>
 	
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
@@ -173,23 +164,23 @@
 			<table class="table table-borderless">
 			<!-- table-hover table-striped table-condensed-->
 				<thead>
-					
+
 				</thead>
 				<tbody>
 					<tr>
 						<td class="col-lg-5">
 							<div class="card picZoomer">
-								<img alt="${bean.name}" src="./../image/images/${bean.image01}" class="card-img-top active_image">
+								<img alt="${bean.name}" src="upload/${bean.image01}" class="card-img-top active_image">
 							</div>
 					</td>
 					
 						<td class="col-lg-1">
-							<img alt="${bean.name}" src="./../image/images/${bean.image01}" class="card-img-top small_image rounded">
+							<img alt="${bean.name}" src="upload/${bean.image01}" class="card-img-top small_image rounded">
 							
 							<c:if test="${not empty bean.image02}">
-								<img alt="${bean.name}" src="./../image/images/${bean.image02}" class="card-img-top small_image rounded">
+								<img alt="${bean.name}" src="upload/${bean.image02}" class="card-img-top small_image rounded">
 							</c:if>
-							<img alt="${bean.name}" src="./../image/images/${bean.image03}" class="card-img-top small_image rounded">
+							<img alt="${bean.name}" src="upload/${bean.image03}" class="card-img-top small_image rounded">
 						
 						</td>
 						

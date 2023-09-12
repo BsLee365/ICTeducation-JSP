@@ -7,9 +7,21 @@ meInsert=com.shopping.controller.member.MemberInsertController
 boInsert=com.shopping.controller.board.BoardInsertController
 boList=com.shopping.controller.board.BoardListController
 meList=com.shopping.controller.member.MemberListController
-prList=com.shopping.controller.product.ProductListController
 prInsert=com.shopping.controller.product.ProductInsertController
 meDetail=com.shopping.controller.member.MemberDetailController
 boDetail=com.shopping.controller.board.BoardDetailController
 prUpdate=com.shopping.controller.product.ProductUpdateController
 boUpdate=com.shopping.controller.board.BoardUpdateController
+prDetail=com.shopping.controller.product.ProductDetailController
+boReply=com.shopping.controller.board.BoardReplyController
+# commentSection
+cmList=com.shopping.controller.comment.CommentListController
+cmInsert=com.shopping.controller.comment.CommentInsertController
+boEmoticon=com.shopping.controller.board.BoardEmoticonController
+#뷰
+vwList=com.shopping.controller.view.ViewListController
+vwExam01=com.shopping.controller.view.View01Controller
+vwExam02=com.shopping.controller.view.View02Controller
+vwExam03=com.shopping.controller.view.View03Controller
+vwExam04=com.shopping.controller.view.View04Controller
+vwExam05=com.shopping.controller.view.View05Controller

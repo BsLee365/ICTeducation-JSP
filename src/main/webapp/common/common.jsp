@@ -134,6 +134,16 @@
 					</c:if>
 					<!-- 회원 목록 보기 / 관리자만-->
 					
+					<!-- 뷰 섹션 -->
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" role="button"
+						data-bs-toggle="dropdown">데이터 보기</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="<%=notWithFormTag%>vwList">목록보기</a>
+							</li>
+						</ul>
+					</li>
+					<!-- 뷰 섹션 끝-->
 				</ul>
 			</div>
 		</div>

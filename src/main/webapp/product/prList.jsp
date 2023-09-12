@@ -121,11 +121,11 @@
 						</c:if>
 						<td>
 							<div class="card" style="width: 19rem;">
-								<a class="removeUnderLine" href="<%=notWithFormTag%>prDetail&num=${bean.num}"> <!-- 작동안됨. -->
+								<a class="removeUnderLine" href="<%=notWithFormTag%>prDetail&pnum=${bean.num}&${requestScope.pageInfo.flowParameter}">
 									<img alt="${bean.name}" src="${pageContext.request.contextPath}/upload/${bean.image01}" style="width: 100%;">
 										<div class="card-body">
 											<h5 class="card-title">${bean.name}</h5>
-											
+								</a> 			
 											<span data-bs-toggle="popover"
 											title="${bean.name}"
 											data-bs-trigger="hover"
@@ -140,7 +140,7 @@
 								
 								<c:if test="${whologin eq 2}">
 									<div>
-										<a id="updateAnchor" class="btn btn-info" href="<%=notWithFormTag%>prUpdate&pnum=${bean.num}">수정</a>
+										<a id="updateAnchor" class="btn btn-info" href="<%=notWithFormTag%>prUpdate&pnum=${bean.num}&${requestScope.pageInfo.flowParameter}">수정</a>
 										<a id="deleteAnchor" class="btn btn-danger" href="#">삭제</a>
 									</div>
 								</c:if>

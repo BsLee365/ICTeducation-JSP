@@ -71,7 +71,13 @@ public class ProductUpdateController extends SuperClass{
 			if (cnt == -1) {
 				super.gotoPage(PREFIX + "prUpdateForm.jsp");
 			}else {
-				new ProductListController().doGet(request, response);
+				String gotopage = super.getUrlInfomation("prList");
+				gotopage += "&pageNumber=" + mr.getParameter("pageNumber");
+				gotopage += "&pageSize=" + mr.getParameter("pageSize");
+				gotopage += "&mode=" + mr.getParameter("mode");
+				gotopage += "&keyword=" + mr.getParameter("keyword");
+				
+				//new ProductListController().doGet(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

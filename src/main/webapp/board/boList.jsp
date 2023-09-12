@@ -52,11 +52,12 @@
 					<th>조회수</th>
 					<th>작성일자</th>
 					<th>수정</th>
+					<th>답글</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td colspan="7" align="right">
+					<td colspan="9" align="right">
 
 						<!-- 검색기능 -->
 						<div class="row">
@@ -124,7 +125,13 @@
 					
 					<td>${bean.regdate}</td>
 					
-					<td><a type="button" href="<%=notWithFormTag%>boUpdate&no=${bean.no}" class="btn btn-info">수정</a></td>
+				 <%-- <c:if test="${sessionScope.loginfo.id eq bean.no}"> --%>
+						<td><a type="button" href="<%=notWithFormTag%>boUpdate&no=${bean.no}&${requestScope.pageInfo.flowParameter}" class="btn btn-info">수정</a></td>
+						
+				<%-- </c:if> --%>
+				<c:set var="replyInfo" value="&groupno=${bean.no}&orderno=${bean.no}&depth=${bean.no}"></c:set>
+				<td><a type="button" href="<%=notWithFormTag%>boReply&no=${bean.no}&${requestScope.pageInfo.flowParameter}${replyInfo}" class="btn btn-info">답글</a></td>
+				
 				</tr>
 				</c:forEach>
 				<!-- 조회수 10넘으면 badge다르게 -->

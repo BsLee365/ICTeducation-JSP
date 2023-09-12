@@ -21,7 +21,9 @@ public class BoardListController extends SuperClass{
 		String pageSize = request.getParameter("pageSize");
 		String mode = request.getParameter("mode");
 		String keyword = request.getParameter("keyword");
-				
+		String flowParameter = request.getParameter(null);		
+		
+		
 		System.out.println("pageNumber :" + pageNumber);
 		BoardDao dao = new BoardDao();
 		
@@ -32,6 +34,7 @@ public class BoardListController extends SuperClass{
 			String url = super.getUrlInfomation("boList"); //URL경로를 재지정.
 			
 			boolean isGrid = false;
+			
 			
 			Paging pageInfo = new Paging(pageNumber, pageSize, totalCount, url, mode, keyword, isGrid);
 			//pageInfo를 메소드에 넣어줘야함.

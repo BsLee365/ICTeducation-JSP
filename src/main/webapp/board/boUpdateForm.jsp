@@ -29,7 +29,11 @@
 		<p>사용자들이 게시물을 수정하는 페이지입니다.</p>
 		
 		<form method="post">
-		<input type="text" name="command" value="boUpdate">
+		<!-- 업데이트 후 넘어갈 페이지 인자값 -->
+		<input type="text" name="pageNumber" value="<%=request.getParameter("pageNumber")%>">
+		<input type="text" name="pagesize" value="<%=request.getParameter("pageSize")%>">
+		<input type="text" name="mode" value="<%=request.getParameter("mode")%>">
+		<input type="text" name="keyword" value="<%=request.getParameter("keyword")%>">
 			<div class="input-group">
 				<span class="input-group-text col-md-2">게시물 번호</span> 
 				<input disabled id="no" name="no" type="number" class="form-control" value='${requestScope.bean.getNo()}'%>	

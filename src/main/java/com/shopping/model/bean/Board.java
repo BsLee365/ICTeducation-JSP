@@ -12,7 +12,12 @@ public class Board {
 	
 	//차후 reply와 관련된 변수
 	private Integer depth; //글의 깊이
+	private Integer groupno; //그룹 번호
+	private Integer orderno; //순서 번호
 	
+	private int likes;
+	private int hates;
+
 	public Board(Integer no, String id, String password, String subject, String content, Integer readhit,
 			String regdate, Integer depth) {
 		super();
@@ -26,8 +31,45 @@ public class Board {
 		this.depth = depth;
 	
 	}
+
+	@Override
+	public String toString() {
+		return "Board [no=" + no + ", id=" + id + ", password=" + password + ", subject=" + subject + ", content="
+				+ content + ", readhit=" + readhit + ", regdate=" + regdate + ", depth=" + depth + ", groupno="
+				+ groupno + ", orderno=" + orderno + ", likes=" + likes + ", hates=" + hates + "]";
+	}
+
 	public Board() {
 	
+	}
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	public int getHates() {
+		return hates;
+	}
+
+	public void setHates(int hates) {
+		this.hates = hates;
+	}
+	
+	public Integer getGroupno() {
+		return groupno;
+	}
+	public void setGroupno(Integer groupno) {
+		this.groupno = groupno;
+	}
+	public Integer getOrderno() {
+		return orderno;
+	}
+	public void setOrderno(Integer orderno) {
+		this.orderno = orderno;
 	}
 	public Integer getDepth() {
 		return depth;

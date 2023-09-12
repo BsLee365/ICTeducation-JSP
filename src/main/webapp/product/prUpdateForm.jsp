@@ -155,6 +155,12 @@
 		<h2>상품 수정</h2>
 		<p>관리자가 구매할 상품을 수정하는 페이지입니다.</p>
 		<form action="<%=withFormTag%>" method="post" enctype="multipart/form-data">
+		
+		<input type="text" name="pageNumber" value="<%=request.getParameter("pageNumber")%>">
+		<input type="text" name="pagesize" value="<%=request.getParameter("pagesize")%>">
+		<input type="text" name="mode" value="<%=request.getParameter("mode")%>">
+		<input type="text" name="keyword" value="<%=request.getParameter("keyword")%>">
+		
 		<input type="hidden" name="command" value="prUpdate">
 			<div class="input-group" id="productPnum">
 				<span class="input-group-text" >상품 번호</span>

@@ -44,10 +44,6 @@ public class ProductListController extends SuperClass{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
-		
-		
-
+	
 	}
 }
