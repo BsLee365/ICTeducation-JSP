@@ -5,11 +5,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.shopping.model.bean.Member;
+import com.shopping.model.mall.CartManager;
+
 // 하위 컨트롤러들이 공통적으로 사용하는 기능들을 여기에 명시합니다.
 public class SuperClass implements SuperController {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	protected HttpSession session; //session영역 변수, session사용시 doGet, doPost는 자동 실행
+	
+	protected Member loginfo = null; // 로그인 여부를 파악하는 변수
+	protected CartManager mycart = null; //나의 카트
+	
+	//로그인 여부 확인
+	public void youNeededLogin() {
+		// 로그인 안했을시 로그인 페이지로 이동시킵니다.
+		String message = "로그인이 필요한 서비스입니다.";
+		this.setAlertMessage(message);
+		this.gotoPage("member/meLoginForm.jsp");
+	}
 	
 	public void setAlertMessage(String message) {
 		//session영역에서 "alertMessage"라는 이름으로 사용자에게 주의/오류/경고 문구 등을 띄워 줍니다.
@@ -23,6 +37,13 @@ public class SuperClass implements SuperController {
 		this.response = response;
 		this.session = request.getSession();//그래서 doGet메서드에 적어줌.
 		
+		this.loginfo = (Member)session.getAttribute("loginfo"); //logincontroller에 있음.
+		this.mycart = (CartManager)session.getAttribute("mycart");
+		
+		if(mycart == null) {//카트가 없다면
+			mycart = new CartManager(); //새로운 카트 생성
+		}
+		
 	}
 		 
 	@Override
@@ -30,6 +51,13 @@ public class SuperClass implements SuperController {
 		this.request = request;
 		this.response = response;
 		this.session = request.getSession();
+		
+		this.loginfo = (Member)session.getAttribute("loginfo"); //loginfo loginController에서 가져옴
+		this.mycart = (CartManager)session.getAttribute("mycart");
+		
+		if(mycart == null) {//카트가 없다면
+			mycart = new CartManager(); //새로운 카트 생성
+		}
 	}
 
 	public void gotoPage(String gotoPage) {//homecontroller.java에서 호출함.
@@ -71,5 +99,6 @@ public class SuperClass implements SuperController {
 		
 		return text;
 	}
+	
 	
 }

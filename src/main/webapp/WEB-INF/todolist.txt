@@ -13,6 +13,7 @@ boDetail=com.shopping.controller.board.BoardDetailController
 prUpdate=com.shopping.controller.product.ProductUpdateController
 boUpdate=com.shopping.controller.board.BoardUpdateController
 prDetail=com.shopping.controller.product.ProductDetailController
+prList=com.shopping.controller.product.ProductListController
 boReply=com.shopping.controller.board.BoardReplyController
 # commentSection
 cmList=com.shopping.controller.comment.CommentListController
@@ -25,3 +26,11 @@ vwExam02=com.shopping.controller.view.View02Controller
 vwExam03=com.shopping.controller.view.View03Controller
 vwExam04=com.shopping.controller.view.View04Controller
 vwExam05=com.shopping.controller.view.View05Controller
+# 장바구니
+#maUpdate=com.shopping.controller.mall.MallUpdateController
+#maDelete=com.shopping.controller.mall.MallDeleteController
+maInsert=com.shopping.controller.mall.MallInsertController
+maList=com.shopping.controller.mall.MallListController
+#maDetail=com.shopping.controller.mall.MallDetailController
+#maHistory=com.shopping.controller.mall.MallHistoryController
+#maCalculate=com.shopping.controller.mall.MallCalculateController

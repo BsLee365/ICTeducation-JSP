@@ -191,10 +191,14 @@
 								<p class="card-text">
 									합계 : <span id="totalprice">10000</span>원
 								</p>
+							<form action="<%=withFormTag%>" method="post">
 								<ul class="pagination">
 								  <li><a href="#" class="page-link minus">-</a></li>
 								  <li class="page-item">
 								  	<a class="page-link" href="#" style="width: 50px;">
+								  		<input type="hidden" name="command" value="maInsert">
+								  		<input type="hidden" name="pnum" value="${bean.num}">
+								  		<input type="hidden" name="stock" value="${bean.stock}">
 								  		<input type="text" name="qty" id="qty" value="0" class="page-link" data-bs-trigger="hover" data-toggle="popover" title="수량 누적 알림" data-content="기존 카트에 품목이 이미 존재하면 수량을 누적합니다.">
 								  	</a>
 								  </li>
@@ -202,9 +206,10 @@
 								</ul>
 								
 								<div class="btn-group">
-									<button type="button" class="btn btn-primary cart">장바구니</button>
+									<button type="submit" class="btn btn-primary cart">장바구니</button>
 									<button type="button" class="btn btn-primary rightnow">바로구매</button>
 								</div>
+							</form>
 							</div>
 						</td>
 					</tr>
