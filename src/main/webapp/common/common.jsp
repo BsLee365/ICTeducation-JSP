@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="./bootstrap5.jsp" %>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <% 
     //appName = 애플리케이션 이름(프로젝트 이름_Student)
 	 String appName = request.getContextPath();
@@ -94,7 +95,7 @@
 								<li><a class="dropdown-item" href="#">정보 수정</a></li>
 								<li><a class="dropdown-item" href="<%=notWithFormTag%>meLogout">로그아웃</a></li>
 								<li><a class="dropdown-item" href="<%=notWithFormTag%>meDetail&id=${sessionScope.loginfo.id}">상세보기</a></li>
-								<li><a class="dropdown-item" href="#">탈퇴하기</a></li>
+								<li><a class="dropdown-item" href="<%=notWithFormTag%>meDelete&id=${sessionScope.loginfo.id}">탈퇴하기</a></li>
 								<li><a class="dropdown-item" href="#">목록보기</a></li>
 							</c:if>
 						</ul>
@@ -133,7 +134,18 @@
 						</li>
 					</c:if>
 					<!-- 회원 목록 보기 / 관리자만-->
-					
+
+					<!-- 쇼핑몰 section -->
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" role="button"
+						data-bs-toggle="dropdown">쇼핑몰</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item"
+								href="<%=notWithFormTag%>maList"> 카트 내역 보기 </a></li>
+							<li><a class="dropdown-item"
+								href="<%=notWithFormTag%>maHistory"> 나의 쇼핑 내역 </a></li>
+						</ul></li>
+						<!-- 쇼핑몰 section 끝 -->
 					<!-- 뷰 섹션 -->
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"

@@ -11,7 +11,7 @@ public class SuperDao {
 	public Connection getConnection() {// step02. 접속 객체 구하기
 		String url="jdbc:oracle:thin:@localhost:1521:xe";
 		String id="shopping";
-		String password="oracle";
+		String password="oraman";
 		
 		try {
 			this.conn = DriverManager.getConnection(url, id, password);

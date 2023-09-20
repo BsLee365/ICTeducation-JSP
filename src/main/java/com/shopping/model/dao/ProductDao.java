@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.shopping.model.bean.Member;
 import com.shopping.model.bean.Product;
+import com.shopping.model.mall.CartItem;
+import com.shopping.utility.MyUtility;
 import com.shopping.utility.Paging;
 
 public class ProductDao extends SuperDao{
@@ -311,6 +313,94 @@ public class ProductDao extends SuperDao{
 			conn.close();
 		}
 		
+		return cnt;
+	}
+	public CartItem getCartItem(Integer pnum, Integer qty) throws Exception{
+		Product bean = this.GetDataByPK(pnum); //상품 정보를 DB에서 가져옴
+		
+		CartItem item = new CartItem(); // 상품정보 + 구매수량 + 로그인 아이디
+		
+		item.setId(null); //wishList용 테이블과 관련 있음.
+		item.setImage01(bean.getImage01());
+		item.setPname(bean.getName());
+		item.setPnum(pnum);
+		item.setPoint(bean.getpoint());
+		item.setPrice(bean.getPrice());
+		item.setQty(qty);
+		
+		
+		return item;
+	}
+	public int GetMileagePoint(Integer pnum) throws SQLException {
+		int point = 0;
+		
+		String sql = "select point from products where pnum=?";
+		
+		conn = super.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pnum);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			point = rs.getInt("point");
+		}
+		
+		if(rs != null) {
+			rs.close();
+		}
+		if(pstmt != null) {
+			pstmt.close();
+		}
+		if(conn != null) {
+			conn.close();
+		}
+		
+		return point;
+	}
+	public int DeleteData(int pnum) throws SQLException {		
+		//상품 번호를 이용하여 해당 상품을 삭제합니다.
+		int cnt = 0;
+		String sql = "";
+		Product bean = this.GetDataByPK(pnum);
+		conn = super.getConnection();
+		PreparedStatement pstmt = null;
+		conn.setAutoCommit(false);
+
+		String remark = MyUtility.getCurrentTime() + bean.getName() + "(상품 번호 : " + pnum + ") 상품이 삭제 되었습니다.  ";
+		
+		//step01 : 주문 상세 테이블의 비고(remark) 컬럼에 히스토리 남기기
+		sql = " update orderdetails set remark=? where pnum=?";
+		pstmt =conn.prepareStatement(sql);
+		
+		pstmt.setString(1, remark);
+		pstmt.setInt(2, pnum);
+		
+		cnt = pstmt.executeUpdate();
+		
+		if(pstmt!= null) {
+			pstmt.close();
+		}
+		
+		//step02 : 상품 테이블에서 해당 상품 번호와 관련된 행 삭제하기
+		sql = " delete from products where pnum=? ";
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, pnum);
+		
+		cnt = pstmt.executeUpdate();
+		
+		conn.commit();
+		
+		if(pstmt!= null) {
+			pstmt.close();
+		}
+		if(conn!= null) {
+			conn.close();
+		}
+
 		return cnt;
 	}
 }

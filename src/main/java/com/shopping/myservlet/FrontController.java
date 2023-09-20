@@ -21,15 +21,14 @@ import com.shopping.utility.MyUtility;
  */
 @WebServlet(
 		urlPatterns = { "/Shopping" }, 
-		initParams = { 
-				@WebInitParam(name = "txtSetting", value = "/WEB-INF/setting.txt"), 
-				@WebInitParam(name = "todolist", value = "/WEB-INF/todolist.txt")
+		initParams = {
+				@WebInitParam(name = "todolist", value = "/WEB-INF/todolist.txt"),
 		})
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//초기화 파라미터 관련 변수
-    private String txtSetting = null;
+	private String txtSetting = null;
     private String todolist = null;
     ServletContext application = null;
     
@@ -50,39 +49,36 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		
 		//파일 읽어들이기
-		this.txtSetting = config.getInitParameter("txtSetting");
 		this.todolist = config.getInitParameter("todolist");
 		
-		System.out.println("this.txtSetting : "+ this.txtSetting);
+		
 		System.out.println("this.todolist : "+ this.todolist);
 		
 		application = config.getServletContext();
 		
-		//txtSetting.txt와 todolist.txt의 실제 경로 가져오기
-		String txtSettingFile = application.getRealPath(txtSetting);
+		//todolist.txt의 실제 경로 가져오기
 		String todolistFile = application.getRealPath(todolist);
-		
-		System.out.println("txtSettingFile : " + txtSettingFile);
+
 		System.out.println("todolistFile : " + todolistFile);
 		
-		//setting.txt를 map으로 바꿔줌.
-		this.settingMap = MyUtility.getSettingMap(txtSettingFile);
-		System.out.println("setting file element size : " + this.settingMap.size());
-		
-		application.setAttribute("map", this.settingMap);
 		
 		//int setting.txt 파일 내의 uploadPath=upload 항목 참조 요망
 		//이미지 업로드 경로를 변수에 저장합니다.
-		String imsiPath = settingMap.get("uploadPath");
-		if(imsiPath==null) {imsiPath ="imgae";}
+		/*
+		 * String imsiPath = settingMap.get("uploadPath"); if(imsiPath==null) {imsiPath
+		 * ="imgae";}
+		 */
 		//imageUploadWebPath 변수 : 실제 이미지가 업로드 되는 경로
-		imageUploadWebPath = application.getRealPath(imsiPath);
-		System.out.println("imageUploadWebPath :  " +  imageUploadWebPath);
+		/*
+		 * imageUploadWebPath = application.getRealPath(imsiPath);
+		 * System.out.println("imageUploadWebPath :  " + imageUploadWebPath);
+		 */
 		
 		//todolist.txt를 map으로 바꿔줌.
 		this.todolistMap = MyUtility.getTodolistMap(todolistFile);
 		System.out.println("this.todolistMap : " + this.todolistMap.size());
 		
+		application.setAttribute("map", this.settingMap);
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{

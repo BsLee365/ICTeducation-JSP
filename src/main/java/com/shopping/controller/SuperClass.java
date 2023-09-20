@@ -38,7 +38,7 @@ public class SuperClass implements SuperController {
 		this.session = request.getSession();//그래서 doGet메서드에 적어줌.
 		
 		this.loginfo = (Member)session.getAttribute("loginfo"); //logincontroller에 있음.
-		this.mycart = (CartManager)session.getAttribute("mycart");
+		this.mycart = (CartManager)session.getAttribute("mycart"); //
 		
 		if(mycart == null) {//카트가 없다면
 			mycart = new CartManager(); //새로운 카트 생성

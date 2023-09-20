@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shopping.model.bean.Member;
+import com.shopping.utility.MyUtility;
 import com.shopping.utility.Paging;
 
 public class MemberDao extends SuperDao{
@@ -74,6 +75,7 @@ public class MemberDao extends SuperDao{
 		bean.setSalary(rs.getInt("salary"));
 		bean.setAddress(rs.getString("address"));
 		bean.setManager(rs.getString("manager"));
+		bean.setMpoint(rs.getInt("mpoint"));
 		
 		return bean;
 	}
@@ -247,6 +249,46 @@ public class MemberDao extends SuperDao{
 		if (conn != null) {
 			conn.close();
 		}
+		return cnt;
+	}
+	public int deleteData(String id) throws Exception {
+		//회원을 탈퇴합니다.
+		int cnt = 0;
+		
+		Member bean = this.getDataByPrimaryKey(id);
+		String remark = MyUtility.getCurrentTime() + bean.getName() + "(아이디 : " + id + ")님이 탈퇴를 하였습니다.";
+		String sql = "";
+		
+		conn = super.getConnection();
+		PreparedStatement pstmt = null;
+		conn.setAutoCommit(false);
+		//step.1 : 게시물 테이블의 remark 컬럼 업데이트
+		sql = " update boards set remark=? where id=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, remark);
+		pstmt.setString(2, id);
+		cnt = pstmt.executeUpdate();
+		//step.2 : 주문 테이블의 remark 컬럼 업데이트
+		sql = " update orders set remark=? where id=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, remark);
+		pstmt.setString(2, id);
+		cnt = pstmt.executeUpdate();
+		//step.3 : 회원 테이블의 id 행을 삭제
+		sql = " delete from members where id=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		cnt = pstmt.executeUpdate();
+		
+		conn.commit();
+		
+		if (pstmt != null) {
+			pstmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+
 		return cnt;
 	}
 

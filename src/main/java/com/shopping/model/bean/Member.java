@@ -10,6 +10,7 @@ public class Member {
 	private Integer salary;
 	private String address;
 	private String manager;
+	private int mpoint;
 	
 	//DB에 반영 안함.
 	private String hobby;
@@ -38,8 +39,9 @@ public class Member {
 	public String toString() {
 		return "Member [id=" + id + ", name=" + name + ", password=" + password + ", gender=" + gender + ", birth="
 				+ birth + ", marriage=" + marriage + ", salary=" + salary + ", address=" + address + ", manager="
-				+ manager + "]";
+				+ manager + ", mpoint=" + mpoint + ", hobby=" + hobby + "]";
 	}
+
 	public String getHobby() {
 		return hobby;
 	}
@@ -101,5 +103,13 @@ public class Member {
 	}
 	public void setManager(String manager) {
 		this.manager = manager;
+	}
+
+	public int getMpoint() {
+		return mpoint;
+	}
+
+	public void setMpoint(int mpoint) {
+		this.mpoint = mpoint;
 	}
 }

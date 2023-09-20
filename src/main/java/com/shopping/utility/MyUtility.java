@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.plaf.multi.MultiMenuItemUI;
@@ -33,32 +34,6 @@ public class MyUtility {
 				}
 			}
 		}
-	}
-	
-	
-	public static Map<String, VehicleController> getTransportationMap(String webFullPathName){
-	//운송 수단 텍스트 파일을 이용하여 각각 동적으로 객체를 생성
-	//이 항목들을 Map구조에 담아서 반환 합니다	
-	Map<String, VehicleController> map = new HashMap<String, VehicleController>();
-	
-		Properties prop = getPropertiesData(webFullPathName);
-		
-		Enumeration<Object> keys = prop.keys();
-		
-		while(keys.hasMoreElements()) {
-			String command = keys.nextElement().toString();
-			String className = prop.getProperty(command);
-			System.out.println(command + "/" + className);
-			
-			try {
-				Class<?> handleClass = Class.forName(className);
-				VehicleController instance = (VehicleController)handleClass.newInstance();
-				map.put(command, instance);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return map;
 	}
 	
 	//frontController의 todolist를 위한 변환 메소드
@@ -116,6 +91,35 @@ public class MyUtility {
 		System.out.println("prop.toString() : " + prop.toString());
 		return prop;
 	}
+	public static Map<String, VehicleController> getTransportationMap(String webFullPathName) {
+		// 운송 수단 텍스트 파일을 이용하여 각각 동적으로 객체를 생성합니다.
+		// 이 항목들을 Map 구조에 담아서 반환합니다. 
+		Map<String, VehicleController> map = new HashMap<String, VehicleController>();
+		
+		Properties prop = getPropertiesData(webFullPathName);
+		
+		Enumeration<Object> keys =  prop.keys() ;
+		
+		while(keys.hasMoreElements()) {
+			String command = keys.nextElement().toString() ;
+			String className = prop.getProperty(command);
+			System.out.println(command + "/" + className);
+			
+			try {
+				Class<?> handleClass = Class.forName(className) ;
+				VehicleController instance = (VehicleController)handleClass.newInstance() ;
+				
+				map.put(command, instance) ;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+	
+	
 	
 	public static Map<String, String> getSettingMap(String webSettingName) {
 		//webSettingName을 자바의 map형태로 변환해줌.
@@ -151,8 +155,13 @@ public class MyUtility {
 			e.printStackTrace();
 		}
 		
-		
+
 		return mr;
+	}
+
+	public static String getCurrentTime() {
+		String pattern = "yyyy-mm-dd hh:MM:ss";
+		return new SimpleDateFormat(pattern).format(new Date());
 	}
 
 }

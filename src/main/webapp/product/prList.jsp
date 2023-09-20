@@ -141,7 +141,7 @@
 								<c:if test="${whologin eq 2}">
 									<div>
 										<a id="updateAnchor" class="btn btn-info" href="<%=notWithFormTag%>prUpdate&pnum=${bean.num}&${requestScope.pageInfo.flowParameter}">수정</a>
-										<a id="deleteAnchor" class="btn btn-danger" href="#">삭제</a>
+										<a id="deleteAnchor" class="btn btn-danger" href="<%=notWithFormTag%>prDelete&pnum=${bean.num}&${requestScope.pageInfo.flowParameter}">삭제</a>
 									</div>
 								</c:if>
 								<!-- 상품 수정 삭제 끝-->
